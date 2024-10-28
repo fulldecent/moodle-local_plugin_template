@@ -18,9 +18,12 @@
  * English strings
  *
  * @package    local_high_five
- * @copyright  William Entriken
+ * @copyright  2024 William Entriken <your@mail.com>
  * @license    http://opensource.org/licenses/MIT MIT License
  */
 
+// General Strings.
 $string['pluginname'] = 'High Five';
 $string['latesthighfive'] = 'Latest high five is from {$a}.';
+$string['highfive:view'] = 'View High Five';
+$string['highfive:manage'] = 'Manage High Five settings';
