@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLDB PATH="local/high_five/db">
+    <TABLE NAME="high_five_table">
+        <FIELDS>
+            <FIELD NAME="id" TYPE="int" LENGTH="10" SEQUENCE="true" NOTNULL="true"/>
+            <FIELD NAME="name" TYPE="varchar" LENGTH="255" NOTNULL="true"/>
+        </FIELDS>
+        <KEYS>
+            <KEY NAME="primary" TYPE="PRIMARY" FIELDS="id"/>
+        </KEYS>
+    </TABLE>
+</XMLDB>
