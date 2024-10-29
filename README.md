@@ -4,7 +4,7 @@ Use this template as a starting point for any Moodle plugin that you want other 
 
 <mark>STATUS: This is a work in progress and supports a discussion of best practices.</mark>
 
-![File listing](screenshots/file-listing.png)
+![File listing](docs/images/file-listing.png)
 
 ## Features
 
@@ -86,7 +86,7 @@ Here's what you get with *High Five*:
 
 * :raised_hand_with_fingers_splayed: A high five page available on your site at /local/high_five/
 
-  <img src="screenshots/screenshot-1.jpg" width=400>
+  <img src="docs/images/screenshot-1.jpg" width=400>
 
 ## Quick start playground
 
