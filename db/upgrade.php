@@ -15,23 +15,32 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Code to be executed after the plugin's database schema has been installed is defined here.
+ * Plugin upgrade steps are defined here.
  *
  * @package     local_high_five
  * @copyright   2024 William Entriken <your@mail.com>
  * @license     http://opensource.org/licenses/MIT MIT License
  */
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once(__DIR__.'/upgradelib.php');
+
 /**
- * Custom code to be run on installing the plugin.
+ * Execute local_high_five upgrade from the given old version.
+ *
+ * @param int $oldversion
+ * @return bool
  */
-function xmldb_local_high_five_install() {
+function xmldb_local_high_five_upgrade($oldversion) {
     global $DB;
 
-    // Create the necessary database table(s)
-    $table = new xmldb_table('high_five_table');
+    $dbman = $DB->get_manager();
 
-    // Define the fields for the table, add indexes, keys, etc. here
+    // For further information please read {@link https://docs.moodle.org/dev/Upgrade_API}.
+    //
+    // You will also have to create the db/install.xml file by using the XMLDB Editor.
+    // Documentation for the XMLDB Editor can be found at {@link https://docs.moodle.org/dev/XMLDB_editor}.
 
     return true;
 }

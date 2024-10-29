@@ -25,13 +25,13 @@
 /**
  * Custom code to be run on installing the plugin.
  */
-function xmldb_local_high_five_install() {
+function xmldb_local_high_five_uninstall() {
+
     global $DB;
 
-    // Create the necessary database table(s)
-    $table = new xmldb_table('high_five_table');
+    $dbman = $DB->get_manager();
 
-    // Define the fields for the table, add indexes, keys, etc. here
+    // Additional cleanup code can go here
 
     return true;
 }
