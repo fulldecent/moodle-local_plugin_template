@@ -18,7 +18,7 @@
  * High five display
  *
  * @package    local_high_five
- * @copyright  William Entriken
+ * @copyright  2024 William Entriken <your@mail.com>
  * @license    http://opensource.org/licenses/MIT MIT License
  */
 
