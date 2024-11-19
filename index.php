@@ -23,18 +23,35 @@
  */
 
 require_once('../../config.php');
+
+// Require user to be logged in.
 require_login();
 
 // Page setup.
 $pageurl = new moodle_url('/local/high_five/index.php');
+$context = context_system::instance();
+
 $PAGE->set_url($pageurl);
-$PAGE->set_context(context_system::instance());
+$PAGE->set_context($context);
 $PAGE->set_title(get_string('pluginname', 'local_high_five'));
 
-// Display content.
-$sender = 'Will'; // For localization, could be sourced from user data in a real scenario.
+// Include JavaScript.
+$PAGE->requires->js_call_amd('local_high_five/canvas_confetti', 'init');
+
+// Prepare page heading.
+$sender = 'Will'; // Replace with dynamic data if needed.
 $highfiveheading = get_string('latesthighfive', 'local_high_five', $sender);
 $PAGE->set_heading($highfiveheading);
 
+// Output page content.
 echo $OUTPUT->header();
+echo html_writer::tag('h2', '🖐️', ['id' => 'plugin-name']);
+
+// Add external confetti library script.
+echo html_writer::script('', 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js', [
+    'integrity' => 'sha384-abcdef123456', // Update integrity hash if needed.
+    'crossorigin' => 'anonymous',
+]);
+
 echo $OUTPUT->footer();
+

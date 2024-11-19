@@ -15,20 +15,37 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * High Five plugin main page display
+ * Library file for the local_high_five plugin.
+ *
+ * Contains functions that extend Moodle's core behavior, such as triggering
+ * events when specific pages are accessed.
  *
  * @package     local_high_five
  * @license     http://opensource.org/licenses/MIT MIT License
  * @copyright   2024 William Entriken
  */
 
-$string['pluginname'] = 'High Five';
-$string['latesthighfive'] = 'Latest High Five is from {$a}.';
-$string['highfive:view'] = 'View High Five';
-$string['highfive:manage'] = 'Manage High Five settings';
+defined('MOODLE_INTERNAL') || die();
 
-// Example Setting Strings
-$string['enable_feature'] = 'Enable High Five Feature'; // Title for the setting.
-$string['enable_feature_desc'] = 'Check this box to enable the High Five feature on the site.'; // Description for the setting.
-// String for custom logging example
-$string['eventdashboardviewed'] = 'Dashboard viewed';
+/**
+ * Hook into the dashboard page load and log the event.
+ *
+ * @param global_navigation $navigation
+ * @return void
+ */
+function local_high_five_extend_navigation(global_navigation $navigation) {
+    global $PAGE, $USER;
+
+    // Check if the current page is the dashboard.
+    if ($PAGE->pagetype === 'my-index') {
+        // Prepare event data.
+        $data = [
+            'context' => \context_user::instance($USER->id),
+            'userid' => $USER->id,
+        ];
+
+        // Trigger the event.
+        $event = \local_high_five\event\dashboard_viewed::create($data);
+        $event->trigger();
+    }
+}

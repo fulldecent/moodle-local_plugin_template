@@ -4,7 +4,7 @@ Use this template as a starting point for developing Moodle plugins.
 
 **STATUS:** This is a work-in-progress, supporting discussions on best practices.
 
-![File listing](docs/images/project-tree.png)
+![File listing](docs/images/file-listing.png)
 
 ## Key features
 
@@ -13,8 +13,10 @@ This template provides a structured, best-practice-compliant foundation for deve
 - 📝 Installation instructions for users
 - 🔧 Build system and CI/CD setup using GitHub Actions
 - 🌍 Localization for all strings
-- ✅ Automated code style checks
-- 🚀 Optional: Unit tests, Behat tests, static analysis, logging, and backup support
+- ✅ Automated code style checks  
+- 🚀 Optional: Unit tests, Behat tests, logging, and AMD integration
+
+### Functional Examples
 
 This repository offers a functional example of a Moodle plugin, with features like:
 
@@ -25,10 +27,13 @@ This repository offers a functional example of a Moodle plugin, with features li
 - [x] **Settings page** to configure the plugin using the standard Moodle admin settings interface
 - [ ] **Admin page** to access functionality of this plugin that only administrators should see
 - [ ] **Scheduled task** to run background processing
-- [ ] **Custom JavaScript** for the user interface, which is built using (AMD??)
+- [x] **Custom JavaScript**: Demonstrates using AMD to load JavaScript in Moodle. Clicking the high-five emoji triggers a confetti effect, showcasing how to integrate JavaScript with Moodle.
 - [x] **Unit test example** to ensure the plugin works as expected in the Catalyst CI system.
+- [x] **Event Logging Example** demonstrates how to log events in Moodle using the Events API.
 
 You can use these features as they are, modify them, or remove what you don’t need.
+
+***
 
 ## Best practices and resources
 
@@ -41,6 +46,8 @@ Follow these best practices to enhance and maintain your plugin:
 - **CI Setup:** [Moodle CI Guide](https://moodlehq.github.io/moodle-plugin-ci/)
 - **General Examples:** [attendance plugin](https://github.com/danmarsden/moodle-mod_attendance)
 
+***
+
 ## Making your own plugin
 
 1. **Fork this repository** and rename it according to Moodle conventions:
@@ -51,7 +58,7 @@ Follow these best practices to enhance and maintain your plugin:
 
 3. **Publish and Release**: Remove this line and above, then publish your repository as version 1.0.0!
 
----
+***
 
 # High Five plugin
 
@@ -74,6 +81,8 @@ Supported Moodle versions: ![CI status](https://github.com/fulldecent/moodle-loc
 
 <img src="docs/images/settings.png" width=400>
 
+***
+
 ## Quick start with playground
 
 Set up a Moodle environment in minutes for testing your plugin locally:
@@ -88,6 +97,7 @@ Set up a Moodle environment in minutes for testing your plugin locally:
    ```sh
    cd ~/Developer
    mkdir moodle-playground && cd moodle-playground
+   
 
 ## Quick start playground
 
@@ -168,9 +178,63 @@ To install High Five on your quality assurance server or your production server,
 
 2. Load your website in the browser to set up plugins.
 
+***
+
+## Using AMD in This Plugin Template
+
+The **High Five** plugin demonstrates how to integrate **AMD (Asynchronous Module Definition)** in Moodle to load JavaScript modules asynchronously, improving performance.
+
+📢 For **non-developers** running the plugin:  
+You don’t need to worry about the build process. Just use the already-built files.
+
+### How It Works
+
+1. **High Five Emoji & Confetti Effect**  
+   When the high-five emoji (`🖐️`) is clicked at `/local/high_five/`, an AMD module is loaded, triggering a confetti effect.
+
+<img src="docs/images/confetti.png" width=400>
+
+2. **Build Process**
+   - JavaScript code is written in the `amd/src/` folder and compiled into the `amd/build/` directory.
+   - The built files in the `build` folder are used by Moodle, dynamically loaded when the emoji is clicked.
+
+### 🎯 JavaScript Development Process
+
+#### Building the AMD Module
+
+To compile the AMD modules:
+
+1. **Set up Grunt**  
+   Follow the [Moodle Node.js tools documentation](https://moodledev.io/general/development/tools/nodejs) to install and configure **Grunt**.
+
+2. **Run the Build Command**  
+   After setting up Grunt, run:
+   ```bash
+   grunt
+   ```
+
+This will compile the AMD modules and place the final files in the amd/build/ folder.
+
+#### Best Practice for Pushing Build Artifacts to GitHub
+
+1. **Push Build Artifacts**
+   - **When**: For production-ready plugins where users may not rebuild assets.
+   - **Why**: Ensures consistent functionality across all environments, even for users who don't rebuild the plugin.
+
+2. **Exclude Build Artifacts**
+   - **When**: If the repository should stay lean, and CI systems handle builds.
+   - **Why**: Keeps the repository clean and reduces its size, but requires users to build assets locally.
+
+**Recommended**: For Moodle plugins, it's often easier to **push build artifacts** to GitHub to simplify deployment.
+
+
+***
+
 ## Contributing
 
 Please send PRs to our [main branch](https://github.com/fulldecent/moodle-local_plugin_template).
+
+***
 
 ## References
 
@@ -182,3 +246,5 @@ Please send PRs to our [main branch](https://github.com/fulldecent/moodle-local_
 4. Continuous integration
    1. This plugin uses [the Moodle CI suite recommended by Catalyst](https://github.com/catalyst/catalyst-moodle-workflows)
    2. Perhaps we would prefer the CI suite provided by Moodle, but their approach [does not allow you to set it once and forget it](https://github.com/moodlehq/moodle-plugin-ci/issues/323)
+5. JavaScript Modules in Moodle. For best practices on how to use JavaScript modules in Moodle, 
+including the use of AMD for asynchronous loading, check the [Moodle JavaScript Modules Documentation](https://moodledev.io/docs/4.5/guides/javascript/modules).
