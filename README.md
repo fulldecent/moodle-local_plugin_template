@@ -4,7 +4,7 @@ Use this template as a starting point for developing Moodle plugins.
 
 **STATUS:** This is a work-in-progress, supporting discussions on best practices.
 
-![File listing](docs/images/file-listing.png)
+![File listing](docs/images/tree.png)
 
 ## Key features
 
@@ -13,7 +13,7 @@ This template provides a structured, best-practice-compliant foundation for deve
 - 📝 Installation instructions for users
 - 🔧 Build system and CI/CD setup using GitHub Actions
 - 🌍 Localization for all strings
-- ✅ Automated code style checks  
+- ✅ Automated code style checks
 - 🚀 Optional: Unit tests, Behat tests, logging, and AMD integration
 
 ### Functional Examples
@@ -69,7 +69,7 @@ Supported Moodle versions: ![CI status](https://github.com/fulldecent/moodle-loc
 ## Features
 
 ### 🎉 High Five page at `/local/high_five/`
-  
+
 
 <img src="docs/images/greeting.png" width=400>  
 
@@ -97,7 +97,7 @@ Set up a Moodle environment in minutes for testing your plugin locally:
    ```sh
    cd ~/Developer
    mkdir moodle-playground && cd moodle-playground
-   
+
 
 ## Quick start playground
 
@@ -246,5 +246,5 @@ Please send PRs to our [main branch](https://github.com/fulldecent/moodle-local_
 4. Continuous integration
    1. This plugin uses [the Moodle CI suite recommended by Catalyst](https://github.com/catalyst/catalyst-moodle-workflows)
    2. Perhaps we would prefer the CI suite provided by Moodle, but their approach [does not allow you to set it once and forget it](https://github.com/moodlehq/moodle-plugin-ci/issues/323)
-5. JavaScript Modules in Moodle. For best practices on how to use JavaScript modules in Moodle, 
-including the use of AMD for asynchronous loading, check the [Moodle JavaScript Modules Documentation](https://moodledev.io/docs/4.5/guides/javascript/modules).
+5. JavaScript Modules in Moodle. For best practices on how to use JavaScript modules in Moodle,
+   including the use of AMD for asynchronous loading, check the [Moodle JavaScript Modules Documentation](https://moodledev.io/docs/4.5/guides/javascript/modules).

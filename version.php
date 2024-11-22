@@ -26,8 +26,9 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_high_five';
 $plugin->release = '1.0';            // Human-readable version name.
-$plugin->version = 2024111301;       // YYYYMMDDXX version format.
+$plugin->version = 2024112100;       // YYYYMMDDXX version format.
 $plugin->requires = 2024041200;      // Required Moodle version (YYYYMMDDXX).
 $plugin->maturity = MATURITY_STABLE; // Maturity level.
 $plugin->supported = [405, 405];     // Supported Moodle version
 $plugin->cron = 0;                   // Cron frequency; 0 if not needed.
+
