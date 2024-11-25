@@ -1,6 +1,6 @@
 # Moodle Plugin Template
 
-Use this template as a starting point for developing Moodle plugins.
+Use this template as a starting point to develop Moodle plugins.
 
 **STATUS:** This is a work-in-progress, supporting discussions on best practices.
 
@@ -8,13 +8,12 @@ Use this template as a starting point for developing Moodle plugins.
 
 ## Key features
 
-This template provides a structured, best-practice-compliant foundation for developing Moodle plugins, including:
+This template provides a structured, best-practice foundation for developing Moodle plugins, including:
 
-- 📝 Installation instructions for users
-- 🔧 Build system and CI/CD setup using GitHub Actions
-- 🌍 Localization for all strings
-- ✅ Automated code style checks  
-- 🚀 Optional: Unit tests, Behat tests, logging, and AMD integration
+- 📝 [Installation instructions](#quick-start-playground) for developers and users of your module
+- 🔧 [Build system and CI/CD setup](#high-five-plugin) using GitHub Actions
+- 🌍 [Localization](./lang) for all strings
+- ✅ [Automated](./.github/workflows) code style checks, unit testing
 
 ### Functional Examples
 
@@ -26,7 +25,7 @@ This repository offers a functional example of a Moodle plugin, with features li
 - [x] **Scheduled task** to run background processing
 - [x] **Custom JavaScript**: Demonstrates using AMD to load JavaScript in Moodle. Clicking the high-five emoji triggers a confetti effect, showcasing how to integrate JavaScript with Moodle.
 - [x] **Unit test example** to ensure the plugin works as expected in the Catalyst CI system.
-- [x] **Event Logging Example** demonstrates how to log events in Moodle using the Events API.
+- [x] **Event logging Example** demonstrates how to log events in Moodle using the Events API.
 
 You can use these features as they are, modify them, or remove what you don’t need.
 
@@ -38,24 +37,28 @@ Follow these best practices to enhance and maintain your plugin:
 
 - **JavaScript Compilation:** [Moodle Node.js Guide](https://moodledev.io/general/development/tools/nodejs)
 - **AMD Compilation:** Examples:
-   - [h5p plugin](https://github.com/h5p/moodle-mod_hvp)
-   - [attendance plugin](https://github.com/danmarsden/moodle-mod_attendance/tree/MOODLE_404_STABLE/amd)
+  - [h5p plugin](https://github.com/h5p/moodle-mod_hvp)
+  - [attendance plugin](https://github.com/danmarsden/moodle-mod_attendance/tree/MOODLE_404_STABLE/amd)
 - **CI Setup:** [Moodle CI Guide](https://moodlehq.github.io/moodle-plugin-ci/)
 - **General Examples:** [attendance plugin](https://github.com/danmarsden/moodle-mod_attendance)
 
 ***
 
-## Making your own plugin
+## How to make your own plugin
 
-1. **Fork this repository** and rename it according to Moodle conventions:
+1. **[Use this template/fork](https://github.com/new?template_name=moodle-local_plugin_template&template_owner=fulldecent)** and rename it according to Moodle conventions:
    - Format: `moodle-<type>_<pluginname>` (e.g., `moodle-local_example`)
    - `<type>` should match Moodle’s [plugin types](https://moodledev.io/docs/apis/plugintypes).
 
-2. **Customize the README**: Replace content below this line to describe your plugin.
+2. **Customize the README**: Update all content below this section to describe your plugin.
 
-3. **Publish and Release**: Remove this line and above, then publish your repository as version 1.0.0!
+3. **Publish and release**: Remove this line and everything above, then publish your repository as version 1.0.0!
 
-***
+---
+
+---
+
+---
 
 # High Five plugin
 
@@ -66,7 +69,6 @@ Supported Moodle versions: ![CI status](https://github.com/fulldecent/moodle-loc
 ## Features
 
 ### 🎉 High Five page at `/local/high_five/`
-  
 
 <img src="docs/images/greeting.png" width=400>  
 
@@ -79,7 +81,6 @@ This plugin includes:
    - Enable/disable a feature via a checkbox in the admin settings page.
 
 <img src="docs/images/settings.png" width=400>
-
 
 2. **Custom Admin Page**:
    - Accessible only by site administrators.
@@ -103,13 +104,14 @@ This plugin includes:
 
 Set up a Moodle environment in minutes for testing your plugin locally:
 
-### Steps:
+### Steps
 
 1. **Install Docker**:
    - Recommended for Mac: [OrbStack](https://orbstack.dev/)
    - Windows/Linux: (add recommended option)
 
 2. **Prepare Moodle Directory**:
+
    ```sh
    cd ~/Developer
    mkdir moodle-playground && cd moodle-playground
@@ -118,6 +120,8 @@ Set up a Moodle environment in minutes for testing your plugin locally:
 ## Quick start playground
 
 :runner: Run a Moodle playground site with *High Five* on your own computer in under 5 minutes! Zero programming or Moodle experience required.
+
+These instructions include code snippets that you will need to copy/paste into your command terminal. On macOS that would be Terminal.app, which is a software you already have installed.
 
 1. Install a Docker system:
 
@@ -143,7 +147,9 @@ Set up a Moodle environment in minutes for testing your plugin locally:
 
    *:information_source: If you see the error "fatal: Remote branch MOODLE_X0Y_STABLE not found in upstream origin", please reread instruction in the code comment and try again.*
 
-4. Install this plugin into your Moodle playground:
+   *These instructions include a workaround for [Moodle issue MDL-83812](https://tracker.moodle.org/browse/MDL-83812).*
+
+4. Install the High Five plugin into your Moodle playground:
 
    ```sh
    git clone https://github.com/fulldecent/moodle-local_plugin_template.git moodle/local/high_five
@@ -168,7 +174,9 @@ Set up a Moodle environment in minutes for testing your plugin locally:
 
    *:information_source: If you see the error "!!! Site is being upgraded, please retry later. !!!", and "Error code: upgraderunning…", please ignore the error and proceed.*
 
-6. :sun_with_face: Now play with your server at https://localhost:8000
+   *These instructions include a workaround for [moodle-docker issue #307](https://github.com/moodlehq/moodle-docker/issues/307).*
+
+6. :sun_with_face: Now play with your server at <http://localhost:8000>
 
    1. Click the top-right to login.
    2. Your username is `admin` and your password is `test`.
@@ -182,11 +190,11 @@ Set up a Moodle environment in minutes for testing your plugin locally:
    colima stop
    ```
 
-If you have any further questions about the playground setup, customizing it or other error messages, please documentation at https://github.com/moodlehq/moodle-docker and contact that team.
+If you have any further questions about the playground setup, customizing it or other error messages, please see [moodle-docker documentation](https://github.com/moodlehq/moodle-docker) and [contact that team](https://github.com/moodlehq/moodle-docker/issues).
 
 ## Install
 
-To install High Five on your quality assurance server or your production server, do the same thing as the plaground example above:
+Install High Five on your quality assurance or production server the same way as on the playground:
 
 1. ```sh
    git clone https://github.com/fulldecent/moodle-local_plugin_template.git local/high_five
@@ -225,6 +233,7 @@ To compile the AMD modules:
 
 2. **Run the Build Command**  
    After setting up Grunt, run:
+
    ```bash
    grunt
    ```
@@ -232,6 +241,7 @@ To compile the AMD modules:
 This will compile the AMD modules and place the final files in the `amd/build/` folder.  
 
 If you face issues with CI during the build, refer to the [Catalyst README](https://github.com/catalyst/catalyst-moodle-workflows/tree/bbb7b5fba5f8304b8b07ad5534b666202d1751c8?tab=readme-ov-file#amd--grunt-bundling-issues) for troubleshooting tips.
+
 #### Best practice for pushing build artifacts to GitHub
 
 1. **Push Build Artifacts**
@@ -243,7 +253,6 @@ If you face issues with CI during the build, refer to the [Catalyst README](http
    - **Why**: Keeps the repository clean and reduces its size, but requires users to build assets locally.
 
 **Recommended**: For Moodle plugins, it's often easier to **push build artifacts** to GitHub to simplify deployment.
-
 
 ***
 
@@ -263,5 +272,5 @@ Please send PRs to our [main branch](https://github.com/fulldecent/moodle-local_
 4. Continuous integration
    1. This plugin uses [the Moodle CI suite recommended by Catalyst](https://github.com/catalyst/catalyst-moodle-workflows)
    2. Perhaps we would prefer the CI suite provided by Moodle, but their approach [does not allow you to set it once and forget it](https://github.com/moodlehq/moodle-plugin-ci/issues/323)
-5. JavaScript Modules in Moodle. For best practices on how to use JavaScript modules in Moodle, 
+5. JavaScript Modules in Moodle. For best practices on how to use JavaScript modules in Moodle,
 including the use of AMD for asynchronous loading, check the [Moodle JavaScript Modules Documentation](https://moodledev.io/docs/4.5/guides/javascript/modules).
