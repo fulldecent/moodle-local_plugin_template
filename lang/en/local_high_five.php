@@ -38,7 +38,7 @@ $string['enable_feature_desc'] = 'Check this box to enable the High Five feature
 // String for custom logging example
 $string['eventdashboardviewed'] = 'Dashboard viewed';
 // Example Admin page strings
-$string['adminpage'] = 'High Five Admin Page';
+$string['adminpage'] = 'High Five admin page';
 $string['adminpagedesc'] = 'This is the admin page for the High Five plugin.';
 // Example Scheduled task to run background processing string
-$string['processhighfivesname'] = 'Process High Fives Task';
+$string['highfivescleanup'] = 'High Fives cleanup task';

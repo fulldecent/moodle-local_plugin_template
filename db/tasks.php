@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $tasks = [
     [
-        'classname' => '\local_high_five\task\process_high_fives',
+        'classname' => '\local_high_five\task\cleanup',
         'blocking' => 0,
         'minute' => '*',
         'hour' => '*',

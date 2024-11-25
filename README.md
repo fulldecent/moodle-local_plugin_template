@@ -11,25 +11,28 @@ Use this template as a starting point to develop Moodle plugins.
 This template provides a structured, best-practice foundation for developing Moodle plugins, including:
 
 - 📝 [Installation instructions](#quick-start-playground) for developers and users of your module
+- :runner: [Some basic, dumb functionality](#functional-examples) for a module that you can edit or remove
 - 🔧 [Build system and CI/CD setup](#high-five-plugin) using GitHub Actions
 - 🌍 [Localization](./lang) for all strings
 - ✅ [Automated](./.github/workflows) code style checks, unit testing
 
-### Functional Examples
+### Functional examples
 
-This repository offers a functional example of a Moodle plugin, with features like:
+This repository offers a functional example of a Moodle plugin, with end-user features:
 
-- [x] **Database initialization and upgrade** scripts
-- [x] **Settings page** to configure the plugin using the standard Moodle admin settings interface
-- [x] **Admin page** to access functionality of this plugin that only administrators should see
-- [x] **Scheduled task** to run background processing
-- [x] **Custom JavaScript**: Demonstrates using AMD to load JavaScript in Moodle. Clicking the high-five emoji triggers a confetti effect, showcasing how to integrate JavaScript with Moodle.
-- [x] **Unit test example** to ensure the plugin works as expected in the Catalyst CI system.
-- [x] **Event logging Example** demonstrates how to log events in Moodle using the Events API.
+- **An admin accessible page** that is permission-locked to site admins
+- **Dashboard page block** for any user to interact with the plugin [ COMING SOON ]
+- **Course page block** for any student to interact with the plugin [ COMING SOON ]
+
+And then additionally are some features that a good plugin may have, which are not directly called out in the end-user documentation:
+
+- **[Scheduled task](task/README.md)** to remove old records from the database
+- **Settings page** to configure the plugin using the standard Moodle admin settings interface
+- **Custom JavaScript** to enhance the user experience
+- **Unit test** to ensure the plugin works as expected in the Catalyst CI system
+- **[Event logging](classes/event/README.md)** demonstrates how to log events in Moodle using the Events API
 
 You can use these features as they are, modify them, or remove what you don’t need.
-
-***
 
 ## Best practices and resources
 
@@ -69,14 +72,6 @@ This page is only accessible to administrators.
 
 *If you are running Moodle locally, see this live at [local/high_five/](http://localhost:8000/local/high_five/).*
 
-### :gear: Site administration page
-
-Turn high fives on or off at `Site administration > Plugins > Local plugins > High Five`.
-
-<img src="docs/images/settings.webp" width=400>
-
-*If you are running Moodle locally, see this live at [admin/settings.php?section=local_high_five](http://localhost:8000/admin/settings.php?section=local_high_five).*
-
 ### Users can make a high five from the dashboard [COMING SOON]
 
 Access on your dashboard page at `Edit mode > Add block > High Five`.
@@ -92,6 +87,16 @@ Access on your course page at `[ INSTRUCTIONS COMING SOON ]`.
 [ IMAGE COMING SOON ]
 
 *If you are running Moodle locally, see this live at [ LINK COMING SOON ].*
+
+### :gear: Site administration page
+
+Turn high fives on or off at `Site administration > Plugins > Local plugins > High Five`.
+
+[ COMING SOON: This will actually disable high fives when off ]
+
+<img src="docs/images/settings.webp" width=400>
+
+*If you are running Moodle locally, see this live at [admin/settings.php?section=local_high_five](http://localhost:8000/admin/settings.php?section=local_high_five).*
 
 ## Quick start playground
 
