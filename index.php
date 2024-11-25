@@ -15,7 +15,11 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * High Five plugin main page display
+ * High Five admin high five page.
+ * 
+ * Only admin can access.
+ * Admin can make a high five.
+ * See the latest high five.
  *
  * @package     local_high_five
  * @license     http://opensource.org/licenses/MIT MIT License
@@ -23,35 +27,31 @@
  */
 
 require_once('../../config.php');
+require_once('classes/db_manager.php');
 
 // Require user to be logged in.
 require_login();
+require_capability('moodle/site:config', context_system::instance());
 
 // Page setup.
 $pageurl = new moodle_url('/local/high_five/index.php');
 $context = context_system::instance();
-
 $PAGE->set_url($pageurl);
 $PAGE->set_context($context);
 $PAGE->set_title(get_string('pluginname', 'local_high_five'));
+$PAGE->requires->js_call_amd('local_high_five/high_five_button', 'init');
+$PAGE->set_heading(get_string('pluginname', 'local_high_five'));
 
-// Include JavaScript.
-$PAGE->requires->js_call_amd('local_high_five/canvas_confetti', 'init');
-
-// Prepare page heading.
-$sender = 'Will'; // Replace with dynamic data if needed.
-$highfiveheading = get_string('latesthighfive', 'local_high_five', $sender);
-$PAGE->set_heading($highfiveheading);
+// Get page content.
+$dbManager = new local_high_five\db_manager();
+$latestHighFive = $dbManager->get_latest_high_five();
 
 // Output page content.
 echo $OUTPUT->header();
-echo html_writer::tag('h2', '🖐️', ['id' => 'plugin-name']);
-
-// Add external confetti library script.
-echo html_writer::script('', 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js', [
-    'integrity' => 'sha384-abcdef123456', // Update integrity hash if needed.
-    'crossorigin' => 'anonymous',
-]);
-
+if ($latestHighFive) {
+    echo html_writer::tag('p', get_string('latesthighfive', 'local_high_five', ['name' => $latestHighFive->name, 'id' => $latestHighFive->id]));
+} else {
+    echo html_writer::tag('p', get_string('nohighfives', 'local_high_five'));
+}
+echo html_writer::tag('button', get_string('makehighfive', 'local_high_five'), ['id' => 'make-high-five']);
 echo $OUTPUT->footer();
-

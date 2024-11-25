@@ -28,7 +28,8 @@ use dml_exception;
  * @license     http://opensource.org/licenses/MIT MIT License
  * @copyright   2024 William Entriken <github.com@phor.net>
  */
-class db_manager {
+class db_manager
+{
     /**
      * @var moodle_database Database connection instance.
      */
@@ -39,82 +40,44 @@ class db_manager {
      *
      * @throws dml_exception If there is a problem with the database connection.
      */
-    public function __construct() {
+    public function __construct()
+    {
         global $DB;
         $this->db = $DB;
     }
 
     /**
-     * Inserts a new record into the high_five table.
-     *
-     * @param string $name The name of the user for the high five.
-     * @return int|false The id of the newly inserted record, or false on failure.
-     */
-    public function insert_data($name) {
-        $record = new \stdClass();
-        $record->name = $name;
-
-        try {
-            return $this->db->insert_record('local_high_five', $record);
-        } catch (dml_exception $e) {
-            return false;
-        }
-    }
-
-    /**
-     * Retrieves all records from the high_five table.
-     *
-     * @return array|false Array of records or false on failure.
-     */
-    public function get_all_data() {
-        try {
-            return $this->db->get_records('local_high_five');
-        } catch (dml_exception $e) {
-            return false;
-        }
-    }
-
-    /**
-     * Retrieves a record by its id.
-     *
-     * @param int $id The id of the record to retrieve.
+     * Retrieves the latest high five record from the high_five table.
+     * 
      * @return stdClass|false The record object or false if not found.
+     * @throws dml_exception If there is a problem with the database query.
      */
-    public function get_data_by_id($id) {
-        try {
-            return $this->db->get_record('local_high_five', ['id' => $id]);
-        } catch (dml_exception $e) {
-            return false;
-        }
+    public function get_latest_high_five(): \stdClass|false
+    {
+        $record = $this->db->get_record_sql('SELECT * FROM {local_high_five} ORDER BY id DESC LIMIT 1');
+        return $record;
     }
 
     /**
-     * Updates an existing record in the high_five table.
-     *
-     * @param int $id The id of the record to update.
-     * @param string $name The new name value for the record.
-     * @return bool True on success, false on failure.
+     * Make a high five using the current user's name and return success status.
      */
-    public function update_data($id, $name) {
-        $record = $this->get_data_by_id($id);
-        if ($record) {
-            $record->name = $name;
-            return $this->db->update_record('local_high_five', $record);
-        }
-        return false;
+    public function make_high_five(): void
+    {
+        global $USER;
+
+        $record = new \stdClass();
+        $record->name = fullname($USER);
+        $this->db->insert_record('local_high_five', $record);
     }
 
     /**
-     * Deletes a record from the high_five table.
-     *
-     * @param int $id The id of the record to delete.
-     * @return bool True on success, false on failure.
+     * Delete old high fives (everything except the latest one).
      */
-    public function delete_data($id) {
-        try {
-            return $this->db->delete_records('local_high_five', ['id' => $id]);
-        } catch (dml_exception $e) {
-            return false;
+    public function delete_old_high_fives(): void
+    {
+        $latest = $this->get_latest_high_five();
+        if ($latest) {
+            $this->db->delete_records_select('local_high_five', 'id != ' . $latest->id);
         }
     }
 }

@@ -33,16 +33,9 @@ You can use these features as they are, modify them, or remove what you don’t 
 
 ## Best practices and resources
 
-Follow these best practices to enhance and maintain your plugin:
+Below in the documentation for your new module, and also in [the database README](db/README.md), we cite specific other modules that we recognize as best practice. Such as using "production mode", which is not compliant with DRY.
 
-- **JavaScript Compilation:** [Moodle Node.js Guide](https://moodledev.io/general/development/tools/nodejs)
-- **AMD Compilation:** Examples:
-  - [h5p plugin](https://github.com/h5p/moodle-mod_hvp)
-  - [attendance plugin](https://github.com/danmarsden/moodle-mod_attendance/tree/MOODLE_404_STABLE/amd)
-- **CI Setup:** [Moodle CI Guide](https://moodlehq.github.io/moodle-plugin-ci/)
-- **General Examples:** [attendance plugin](https://github.com/danmarsden/moodle-mod_attendance)
-
-***
+Additionally, where we think Moodle has not followed best practices, we link to an issue upstream, and provivde a workaround. Such as all the extra boilerplate code necessary to start developing modules.
 
 ## How to make your own plugin
 
@@ -68,54 +61,37 @@ Supported Moodle versions: ![CI status](https://github.com/fulldecent/moodle-loc
 
 ## Features
 
-### 🎉 High Five page at `/local/high_five/`
+### :hand: ​Admin can make a high five
 
-<img src="docs/images/greeting.png" width=400>  
+This page is only accessible to administrators.
 
-### ⚙️ Admin Page and Settings Example
+<img src="docs/images/admin-high-five.webp" width=400>
 
-This plugin includes:
+*If you are running Moodle locally, see this live at [local/high_five/](http://localhost:8000/local/high_five/).*
 
-1. **Admin Settings**:
-   - Access the settings at: `Site administration > Plugins > Local plugins > High Five`.
-   - Enable/disable a feature via a checkbox in the admin settings page.
+### :gear: Site administration page
 
-<img src="docs/images/settings.png" width=400>
+Turn high fives on or off at `Site administration > Plugins > Local plugins > High Five`.
 
-2. **Custom Admin Page**:
-   - Accessible only by site administrators.
-   - Access the admin page at: `/local/high_five/adminpage.php`.
+<img src="docs/images/settings.webp" width=400>
 
-<img src="docs/images/admin-page.png" width=400>
+*If you are running Moodle locally, see this live at [admin/settings.php?section=local_high_five](http://localhost:8000/admin/settings.php?section=local_high_five).*
 
-### Files
+### Users can make a high five from the dashboard [COMING SOON]
 
-- **`settings.php`**: Adds plugin settings and a link to the custom admin page.
-- **`adminpage.php`**: Displays the custom admin page.
+Access on your dashboard page at `Edit mode > Add block > High Five`.
 
-### Usage
+[ IMAGE COMING SOON ]
 
-1. Navigate to *Site administration > Plugins > Local plugins > High Five*.
-2. Configure the settings or click the "Admin Page" link to access custom functionality.
+*If you are running Moodle locally, see this live at [blocks/high_five/](http://localhost:8000/my/index.php).*
 
-***
+### Students can make a high five from inside a course [ COMING SOON ]
 
-## Quick start with playground
+Access on your course page at `[ INSTRUCTIONS COMING SOON ]`.
 
-Set up a Moodle environment in minutes for testing your plugin locally:
+[ IMAGE COMING SOON ]
 
-### Steps
-
-1. **Install Docker**:
-   - Recommended for Mac: [OrbStack](https://orbstack.dev/)
-   - Windows/Linux: (add recommended option)
-
-2. **Prepare Moodle Directory**:
-
-   ```sh
-   cd ~/Developer
-   mkdir moodle-playground && cd moodle-playground
-   
+*If you are running Moodle locally, see this live at [ LINK COMING SOON ].*
 
 ## Quick start playground
 
@@ -202,65 +178,46 @@ Install High Five on your quality assurance or production server the same way as
 
 2. Load your website in the browser to set up plugins.
 
-***
+## Updating JavaScript
 
-## Using AMD in This Plugin Template
+*You only need these instructions if you contribute changes to this High Five plugin, specifically the functionality in JavaScript.*
 
-The **High Five** plugin demonstrates how to integrate **AMD (Asynchronous Module Definition)** in Moodle to load JavaScript modules asynchronously, improving performance.
+This project uses asynchronous module definition (AMD) to compile JavaScript. This improves performance of modules and is a best practice for Moodle modules [CITATION NEEDED].
 
-📢 For **non-developers** running the plugin:  
-You don’t need to worry about the build process. Just use the already-built files.
+1. Install Node (we recommend using [nvm](https://github.com/nvm-sh/nvm))
 
-### How It Works
+   1. See the required version in your package.json file:
 
-1. **High Five Emoji & Confetti Effect**  
-   When the high-five emoji (`🖐️`) is clicked at `/local/high_five/`, an AMD module is loaded, triggering a confetti effect.
+      ```sh
+      cd ~/Developer/moodle-playground/moodle/local/high_five
+      cat ../../package.json | grep '"node"'
+      ```
 
-<img src="docs/images/confetti.png" width=400>
+2. Install a Node package manager (we recommend [Yarn Berry](https://github.com/yarnpkg/berry)).
 
-2. **Build Process**
-   - JavaScript code is written in the `amd/src/` folder and compiled into the `amd/build/` directory.
-   - The built files in the `build` folder are used by Moodle, dynamically loaded when the emoji is clicked.
-
-### 🎯 JavaScript Development Process
-
-#### Building the AMD Module
-
-To compile the AMD modules:
-
-1. **Set up Grunt**  
-   Follow the [Moodle Node.js tools documentation](https://moodledev.io/general/development/tools/nodejs) to install and configure **Grunt**.
-
-2. **Run the Build Command**  
-   After setting up Grunt, run:
-
-   ```bash
-   grunt
+   ```shcorepack enable
+   corepack enable
    ```
 
-This will compile the AMD modules and place the final files in the `amd/build/` folder.  
+3. Install packages
 
-If you face issues with CI during the build, refer to the [Catalyst README](https://github.com/catalyst/catalyst-moodle-workflows/tree/bbb7b5fba5f8304b8b07ad5534b666202d1751c8?tab=readme-ov-file#amd--grunt-bundling-issues) for troubleshooting tips.
+   ```sh
+   yarn install
+   ```
 
-#### Best practice for pushing build artifacts to GitHub
+4. Run the Grunt script to rebuild the AMD module
 
-1. **Push Build Artifacts**
-   - **When**: For production-ready plugins where users may not rebuild assets.
-   - **Why**: Ensures consistent functionality across all environments, even for users who don't rebuild the plugin.
+   ```sh
+   yarn exec grunt amd
+   ```
 
-2. **Exclude Build Artifacts**
-   - **When**: If the repository should stay lean, and CI systems handle builds.
-   - **Why**: Keeps the repository clean and reduces its size, but requires users to build assets locally.
+The end result is that your files in [amd/build](amd/build) will be updated, assuming you have made changes to your files in [amd/source](amd/source).
 
-**Recommended**: For Moodle plugins, it's often easier to **push build artifacts** to GitHub to simplify deployment.
-
-***
+Do commit these built artifacts in your repository (do not gitignore the amd/build directory). Yes, this is a violation of DRY principle. This is called "production mode" and it is a documented best practice for Moodle modules [CITATION NEEDED].
 
 ## Contributing
 
 Please send PRs to our [main branch](https://github.com/fulldecent/moodle-local_plugin_template).
-
-***
 
 ## References
 
@@ -271,6 +228,7 @@ Please send PRs to our [main branch](https://github.com/fulldecent/moodle-local_
    1. If you require a few courses and users to test your plugin, you may want to look at the [generator tool](https://moodledev.io/general/development/tools/generator).
 4. Continuous integration
    1. This plugin uses [the Moodle CI suite recommended by Catalyst](https://github.com/catalyst/catalyst-moodle-workflows)
-   2. Perhaps we would prefer the CI suite provided by Moodle, but their approach [does not allow you to set it once and forget it](https://github.com/moodlehq/moodle-plugin-ci/issues/323)
-5. JavaScript Modules in Moodle. For best practices on how to use JavaScript modules in Moodle,
-including the use of AMD for asynchronous loading, check the [Moodle JavaScript Modules Documentation](https://moodledev.io/docs/4.5/guides/javascript/modules).
+   2. Perhaps we would prefer the CI suite provided by Moodle, but their approach [does not allow you to set it once and forget it](https://github.com/moodlehq/moodle-plugin-ci/issues/323).
+   3. If you face issues with CI during the build, refer to the [Catalyst README](https://github.com/catalyst/catalyst-moodle-workflows/tree/bbb7b5fba5f8304b8b07ad5534b666202d1751c8?tab=readme-ov-file#amd--grunt-bundling-issues) for troubleshooting tips.
+5. JavaScript modules in Moodle. For best practices on how to use JavaScript modules in Moodle,
+  including the use of AMD for asynchronous loading, check the [Moodle JavaScript Modules Documentation](https://moodledev.io/docs/4.5/guides/javascript/modules). We recommend including the amd/build folder in your repo with your build files. This is not DRY, it is "production mode". Examples of other Moodle modules recommending this best practice are [h5p plugin](https://github.com/h5p/moodle-mod_hvp), [attendance plugin](https://github.com/danmarsden/moodle-mod_attendance/tree/MOODLE_404_STABLE/amd).

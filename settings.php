@@ -32,14 +32,14 @@ if ($hassiteconfig) { // Ensure the user has site admin permissions.
         'local_high_five/enable_feature', // Setting name.
         get_string('enable_feature', 'local_high_five'), // Title of the setting.
         get_string('enable_feature_desc', 'local_high_five'), // Description of the setting.
-        0 // Default is disabled (set to 1 to enable by default).
+        1 // Default is disabled (set to 1 to enable by default).
     ));
 
     // Add a link to the custom admin page.
     $ADMIN->add('localplugins', new admin_externalpage(
         'local_high_five_adminpage', // Unique name for the page.
         get_string('adminpage', 'local_high_five'), // Page title.
-        new moodle_url('/local/high_five/adminpage.php'), // URL to the admin page script.
+        new moodle_url('/local/high_five/index.php'), // URL to the admin page script.
         'moodle/site:config' // Required capability.
     ));
 

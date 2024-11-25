@@ -23,7 +23,12 @@
  */
 
 $string['pluginname'] = 'High Five';
-$string['latesthighfive'] = 'Latest High Five is from {$a}.';
+
+$string['nohighfives'] = 'There are no High Fives yet. You can be the first!';
+$string['latesthighfive'] = 'Latest High Five is from <em>{$a->name}</em>, with ID number <em>{$a->id}</em>.';
+$string['makehighfive'] = 'Make a High Five 🖐️';
+$string['highfivefail'] = 'High Five failed. Please try again.';
+
 $string['highfive:view'] = 'View High Five';
 $string['highfive:manage'] = 'Manage High Five settings';
 
