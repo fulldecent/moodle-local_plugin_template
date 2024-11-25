@@ -24,7 +24,8 @@ The `dashboard_viewed` event is a custom logging event triggered whenever a user
 ### `lib.php`
 - Contains the logic to trigger the event when the dashboard is accessed.
 
-## Helpful Links
+## References
+
 For more information about Moodle’s event and logging API, refer to the following documentation for Moodle 4.5:
 - [Moodle Events API Documentation](https://docs.moodle.org/dev/Events_API)
 - [Moodle Logging Documentation](https://docs.moodle.org/405/en/Logging)

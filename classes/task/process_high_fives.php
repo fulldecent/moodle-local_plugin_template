@@ -15,19 +15,41 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin version details
+ * Scheduled task to run background processing
  *
  * @package     local_high_five
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @copyright   2024 William Entriken
  */
 
+namespace local_high_five\task;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_high_five';
-$plugin->release = '1.0';            // Human-readable version name.
-$plugin->version = 2024112102;       // YYYYMMDDXX version format.
-$plugin->requires = 2024041200;      // Required Moodle version (YYYYMMDDXX).
-$plugin->maturity = MATURITY_STABLE; // Maturity level.
-$plugin->supported = [405, 405];     // Supported Moodle version
-$plugin->cron = 0;                   // Cron frequency; 0 if not needed.
+/**
+ * Class process_high_fives
+ *
+ * Handles scheduled background processing for High Fives.
+ *
+ */
+class process_high_fives extends \core\task\scheduled_task {
+
+    /**
+     * Return the task name.
+     *
+     * @return string
+     */
+    public function get_name() {
+        return get_string('processhighfivesname', 'local_high_five');
+    }
+
+    /**
+     * Execute the task.
+     *
+     * @return void
+     */
+    public function execute() {
+        // Add your processing logic here.
+        mtrace('Processing High Fives...');
+    }
+}

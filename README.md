@@ -4,7 +4,7 @@ Use this template as a starting point for developing Moodle plugins.
 
 **STATUS:** This is a work-in-progress, supporting discussions on best practices.
 
-![File listing](docs/images/tree.png)
+![File listing](docs/images/project-files.png)
 
 ## Key features
 
@@ -13,7 +13,7 @@ This template provides a structured, best-practice-compliant foundation for deve
 - 📝 Installation instructions for users
 - 🔧 Build system and CI/CD setup using GitHub Actions
 - 🌍 Localization for all strings
-- ✅ Automated code style checks
+- ✅ Automated code style checks  
 - 🚀 Optional: Unit tests, Behat tests, logging, and AMD integration
 
 ### Functional Examples
@@ -21,12 +21,9 @@ This template provides a structured, best-practice-compliant foundation for deve
 This repository offers a functional example of a Moodle plugin, with features like:
 
 - [x] **Database initialization and upgrade** scripts
-- [ ] **Dashboard Context block** (`CONTEXT_USER`) to display content on student dashboards ("My home")
-- [ ] **Course content block** (`CONTEXT_COURSE`) to display content on course pages
-- [ ] **Activity block** (`CONTEXT_MODULE`) to display content on activity pages
 - [x] **Settings page** to configure the plugin using the standard Moodle admin settings interface
-- [ ] **Admin page** to access functionality of this plugin that only administrators should see
-- [ ] **Scheduled task** to run background processing
+- [x] **Admin page** to access functionality of this plugin that only administrators should see
+- [x] **Scheduled task** to run background processing
 - [x] **Custom JavaScript**: Demonstrates using AMD to load JavaScript in Moodle. Clicking the high-five emoji triggers a confetti effect, showcasing how to integrate JavaScript with Moodle.
 - [x] **Unit test example** to ensure the plugin works as expected in the Catalyst CI system.
 - [x] **Event Logging Example** demonstrates how to log events in Moodle using the Events API.
@@ -69,17 +66,36 @@ Supported Moodle versions: ![CI status](https://github.com/fulldecent/moodle-loc
 ## Features
 
 ### 🎉 High Five page at `/local/high_five/`
-
+  
 
 <img src="docs/images/greeting.png" width=400>  
 
+### ⚙️ Admin Page and Settings Example
 
-### ⚙️ **Settings page** to configure the plugin behavior.
+This plugin includes:
 
-- The **High Five** plugin includes a settings page for enabling or disabling the High Five feature.
-- Access the settings at: `Site administration > Plugins > Local plugins > High Five`.
+1. **Admin Settings**:
+   - Access the settings at: `Site administration > Plugins > Local plugins > High Five`.
+   - Enable/disable a feature via a checkbox in the admin settings page.
 
 <img src="docs/images/settings.png" width=400>
+
+
+2. **Custom Admin Page**:
+   - Accessible only by site administrators.
+   - Access the admin page at: `/local/high_five/adminpage.php`.
+
+<img src="docs/images/admin-page.png" width=400>
+
+### Files
+
+- **`settings.php`**: Adds plugin settings and a link to the custom admin page.
+- **`adminpage.php`**: Displays the custom admin page.
+
+### Usage
+
+1. Navigate to *Site administration > Plugins > Local plugins > High Five*.
+2. Configure the settings or click the "Admin Page" link to access custom functionality.
 
 ***
 
@@ -97,7 +113,7 @@ Set up a Moodle environment in minutes for testing your plugin locally:
    ```sh
    cd ~/Developer
    mkdir moodle-playground && cd moodle-playground
-
+   
 
 ## Quick start playground
 
@@ -213,9 +229,10 @@ To compile the AMD modules:
    grunt
    ```
 
-This will compile the AMD modules and place the final files in the amd/build/ folder.
+This will compile the AMD modules and place the final files in the `amd/build/` folder.  
 
-#### Best Practice for Pushing Build Artifacts to GitHub
+If you face issues with CI during the build, refer to the [Catalyst README](https://github.com/catalyst/catalyst-moodle-workflows/tree/bbb7b5fba5f8304b8b07ad5534b666202d1751c8?tab=readme-ov-file#amd--grunt-bundling-issues) for troubleshooting tips.
+#### Best practice for pushing build artifacts to GitHub
 
 1. **Push Build Artifacts**
    - **When**: For production-ready plugins where users may not rebuild assets.
@@ -246,5 +263,5 @@ Please send PRs to our [main branch](https://github.com/fulldecent/moodle-local_
 4. Continuous integration
    1. This plugin uses [the Moodle CI suite recommended by Catalyst](https://github.com/catalyst/catalyst-moodle-workflows)
    2. Perhaps we would prefer the CI suite provided by Moodle, but their approach [does not allow you to set it once and forget it](https://github.com/moodlehq/moodle-plugin-ci/issues/323)
-5. JavaScript Modules in Moodle. For best practices on how to use JavaScript modules in Moodle,
-   including the use of AMD for asynchronous loading, check the [Moodle JavaScript Modules Documentation](https://moodledev.io/docs/4.5/guides/javascript/modules).
+5. JavaScript Modules in Moodle. For best practices on how to use JavaScript modules in Moodle, 
+including the use of AMD for asynchronous loading, check the [Moodle JavaScript Modules Documentation](https://moodledev.io/docs/4.5/guides/javascript/modules).

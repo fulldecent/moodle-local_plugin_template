@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin version details
+ * Scheduled task to run background processing
  *
  * @package     local_high_five
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -24,10 +24,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_high_five';
-$plugin->release = '1.0';            // Human-readable version name.
-$plugin->version = 2024112102;       // YYYYMMDDXX version format.
-$plugin->requires = 2024041200;      // Required Moodle version (YYYYMMDDXX).
-$plugin->maturity = MATURITY_STABLE; // Maturity level.
-$plugin->supported = [405, 405];     // Supported Moodle version
-$plugin->cron = 0;                   // Cron frequency; 0 if not needed.
+$tasks = [
+    [
+        'classname' => '\local_high_five\task\process_high_fives',
+        'blocking' => 0,
+        'minute' => '*',
+        'hour' => '*',
+        'day' => '*',
+        'month' => '*',
+        'dayofweek' => '*',
+        'disabled' => 0
+    ]
+];
