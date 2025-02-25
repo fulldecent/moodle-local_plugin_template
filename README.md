@@ -220,40 +220,41 @@ The end result is that your files in [amd/build](amd/build) will be updated, ass
 
 Do commit these built artifacts in your repository (do not gitignore the amd/build directory). Yes, this is a violation of DRY principle. This is called "production mode" and it is a documented best practice for Moodle modules [CITATION NEEDED].
 
-## Setting Up the High Five Block Plugin
+## Setting up the high five block plugin
 
 To use the High Five plugin as a block in Moodle, follow these steps:
 
-1. **Create the Block Folder Structure:**
-   - Inside your local `high_five` plugin directory, create a folder named `block`.
-   - Inside the `block` folder, create the following subfolders and files:
-     - `db/` (for database-related files)
-     - `lang/` (for language files)
-     - `version.php` (to define the plugin version)
-     - `block_high_five.php` (the main block file)
+1.  **Create the block folder structure:**
 
-2. **Create a Symbolic Link:**
-   - Navigate to your Moodle installation's `blocks` directory.
-   - Create a symbolic link to the `block` folder inside your `high_five` plugin directory. This allows Moodle to recognize the plugin as a block.
-   - On Unix-based systems (Linux/macOS), use the following command:
-     ```sh
-     ln -s /path/to/your/high_five/block /path/to/moodle/blocks/high_five
-     ```
+    -   Inside your local `high_five` plugin directory, create a folder named `block`.
+    -   Inside the `block` folder, create the following subfolders and files:
+        -   `db/` (for database-related files)
+        -   `lang/` (for language files)
+        -   `version.php` (to define the plugin version)
+        -   `block_high_five.php` (the main block file)
+2.  **Create a symbolic link:**
 
-3. **Verify the Setup:**
-   - After creating the symbolic link, navigate to your Moodle site as an administrator.
-   - Go to `Site administration > Notifications`. Moodle should detect the new block and prompt you to install it.
-   - Follow the on-screen instructions to complete the installation.
+    -   Navigate to your Moodle installation's `blocks` directory.
+    -   Create a symbolic link to the `block` folder inside your `high_five` plugin directory. This allows Moodle to recognize the plugin as a block.
+    -   On Unix-based systems (Linux/macOS), use the following command:
 
-4. **Using the Block:**
-   - Once installed, you can add the "High Five" block to any course or dashboard page.
-   - To add the block:
-     1. Turn on editing mode.
-     2. Click "Add a block" in the blocks drawer.
-     3. Select "High Five" from the list of available blocks.
+        `ln -s /path/to/your/high_five/block /path/to/moodle/blocks/high_five`
 
-5. **Development and Customization:**
-   - You can now develop and customize the block by editing the files in the `block` folder of your `high_five` plugin.
+3.  **Verify the setup:**
+
+    -   After creating the symbolic link, navigate to your Moodle site as an administrator.
+    -   Go to `Site administration > Notifications`. Moodle should detect the new block and prompt you to install it.
+    -   Follow the on-screen instructions to complete the installation.
+4.  **Using the block:**
+
+    -   Once installed, you can add the "High Five" block to any course or dashboard page.
+    -   To add the block:
+        1.  Turn on editing mode.
+        2.  Click "Add a block" in the blocks drawer.
+        3.  Select "High Five" from the list of available blocks.
+5.  **Development and customization:**
+
+    -   You can now develop and customize the block by editing the files in the `block` folder of your `high_five` plugin.
 
 6. **Troubleshooting:**
    - If the block does not appear in Moodle, ensure the symbolic link is correctly set up and that the `block` folder contains the necessary files (`version.php`, `block_high_five.php`, etc.).
