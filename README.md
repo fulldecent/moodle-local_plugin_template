@@ -15,7 +15,7 @@ This template provides a structured, best-practice foundation for developing Moo
 - 🔧 [Build system and CI/CD setup](#high-five-plugin) using GitHub Actions
 - 🌍 [Localization](./lang) for all strings
 - ✅ [Automated](./.github/workflows) code style checks, unit testing
-- 🆙 Your module is [tested against](./.github/workflows)/validated/confirmed working with new Moodle versions, when published, with zero action from you
+- 🆙 Your module [confirms compatibility](./.github/workflows) with new Moodle versions, when published, with zero action from you
 
 ### Functional examples
 
