@@ -5,7 +5,7 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: '0 0 1 */6 *' # Runs every six months to see if a new version of Moodle was released
+    - cron: '0 0 1 * *' # Runs every month to see if a new version of Moodle was released
 
 jobs:
   ci:
