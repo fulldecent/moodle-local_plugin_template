@@ -16,7 +16,7 @@
 
 /**
  * High Five admin high five page.
- * 
+ *
  * Only admin can access.
  * Admin can make a high five.
  * See the latest high five.
@@ -43,13 +43,16 @@ $PAGE->requires->js_call_amd('local_high_five/high_five_button', 'init');
 $PAGE->set_heading(get_string('pluginname', 'local_high_five'));
 
 // Get page content.
-$dbManager = new local_high_five\db_manager();
-$latestHighFive = $dbManager->get_latest_high_five();
+$dbmanager = new local_high_five\db_manager();
+$latesthighfive = $dbmanager->get_latest_high_five();
 
 // Output page content.
 echo $OUTPUT->header();
-if ($latestHighFive) {
-    echo html_writer::tag('p', get_string('latesthighfive', 'local_high_five', ['name' => $latestHighFive->name, 'id' => $latestHighFive->id]));
+if ($latesthighfive) {
+    echo html_writer::tag('p', get_string('latesthighfive', 'local_high_five', [
+        'name' => $latesthighfive->name,
+        'id' => $latesthighfive->id,
+    ]));
 } else {
     echo html_writer::tag('p', get_string('nohighfives', 'local_high_five'));
 }

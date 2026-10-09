@@ -39,4 +39,3 @@ function xmldb_local_high_five_uninstall() {
         $DB->get_manager()->drop_table($table);
     }
 }
-

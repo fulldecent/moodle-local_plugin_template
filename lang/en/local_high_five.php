@@ -32,13 +32,17 @@ $string['highfivefail'] = 'High Five failed. Please try again.';
 $string['highfive:view'] = 'View High Five';
 $string['highfive:manage'] = 'Manage High Five settings';
 
-// Example Setting strings
+// Example setting strings.
 $string['enable_feature'] = 'Enable High Five Feature'; // Title for the setting.
 $string['enable_feature_desc'] = 'Check this box to enable the High Five feature on the site.'; // Description for the setting.
-// String for custom logging example
+// String for the custom logging example.
 $string['eventdashboardviewed'] = 'Dashboard viewed';
-// Example Admin page strings
+// Example admin page strings.
 $string['adminpage'] = 'High Five admin page';
 $string['adminpagedesc'] = 'This is the admin page for the High Five plugin.';
-// Example Scheduled task to run background processing string
+// Example scheduled task string.
 $string['highfivescleanup'] = 'High Fives cleanup task';
+
+$string['privacy:metadata:local_high_five'] = 'The name of the person who made a high five.';
+$string['privacy:metadata:local_high_five:name'] = 'The full name of the person who made the high five.';
+$string['privacy:path'] = 'High fives';

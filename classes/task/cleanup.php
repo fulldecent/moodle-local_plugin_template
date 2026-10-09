@@ -24,22 +24,18 @@
 
 namespace local_high_five\task;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class cleanup
  *
  * Deletes old high fives from the database.
  */
-class cleanup extends \core\task\scheduled_task
-{
+class cleanup extends \core\task\scheduled_task {
     /**
      * Return the task name.
      *
      * @return string
      */
-    public function get_name()
-    {
+    public function get_name() {
         return get_string('highfivescleanup', 'local_high_five');
     }
 
@@ -48,9 +44,8 @@ class cleanup extends \core\task\scheduled_task
      *
      * @return void
      */
-    public function execute()
-    {
-        $db_manager = new \local_high_five\db_manager();
-        $db_manager->delete_old_high_fives();
+    public function execute() {
+        $dbmanager = new \local_high_five\db_manager();
+        $dbmanager->delete_old_high_fives();
     }
 }

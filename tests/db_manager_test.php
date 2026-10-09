@@ -30,7 +30,6 @@ use advanced_testcase;
  * @copyright   2024 William Entriken <github.com@phor.net>
  */
 class db_manager_test extends advanced_testcase {
-
     /**
      * Test if the db_manager class exists.
      *

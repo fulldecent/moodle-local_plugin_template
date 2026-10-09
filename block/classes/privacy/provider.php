@@ -15,15 +15,29 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Language strings for the High five block.
+ * Privacy subsystem implementation for block_high_five.
  *
  * @package    block_high_five
  * @copyright  2024 William Entriken <github.com@phor.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'High five';
-$string['viewhighfive'] = 'View high five';
-$string['latesthighfive'] = 'Latest high five from {$a->name} (ID: {$a->id})';
-$string['nohighfives'] = 'No high fives yet.';
-$string['privacy:metadata'] = 'The High five block displays data stored by local_high_five and stores none itself.';
+namespace block_high_five\privacy;
+
+/**
+ * The block stores no personal data. Names live in local_high_five.
+ *
+ * @package    block_high_five
+ * @copyright  2024 William Entriken <github.com@phor.net>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class provider implements \core_privacy\local\metadata\null_provider {
+    /**
+     * Get the language string identifier explaining why this plugin stores no data.
+     *
+     * @return string
+     */
+    public static function get_reason(): string {
+        return 'privacy:metadata';
+    }
+}

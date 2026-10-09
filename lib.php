@@ -25,8 +25,6 @@
  * @copyright   2024 William Entriken
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Hook into the dashboard page load and log the event.
  *

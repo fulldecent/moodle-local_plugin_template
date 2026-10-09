@@ -1,8 +1,27 @@
 <?php
-defined('MOODLE_INTERNAL') || die();
+// This file is part of the High Five plugin for Moodle
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
+/**
+ * High five block.
+ *
+ * @package    block_high_five
+ * @copyright  2024 William Entriken <github.com@phor.net>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_high_five extends block_base {
-
     /**
      * Initialize block title.
      */
@@ -11,14 +30,12 @@ class block_high_five extends block_base {
     }
 
     /**
- * Include JavaScript for AJAX handling.
- */
-public function get_required_javascript() {
-    global $PAGE;
-    parent::get_required_javascript();
-    $PAGE->requires->js_call_amd('local_high_five/high_five_button', 'init');
-}
-
+     * Include JavaScript for AJAX handling.
+     */
+    public function get_required_javascript() {
+        parent::get_required_javascript();
+        $this->page->requires->js_call_amd('local_high_five/high_five_button', 'init');
+    }
 
     /**
      * Returns the block content.
@@ -31,30 +48,31 @@ public function get_required_javascript() {
         }
 
         // Moodle loads this file through blocks/high_five, a symlink to this directory.
-        // __DIR__ resolves to the real block directory, so the plugin root is one level up.
+        // PHP resolves __DIR__ to the real block directory, so the plugin root is one level up.
         require_once(dirname(__DIR__) . '/classes/db_manager.php');
 
         $this->content = new stdClass();
-        $dbManager = new local_high_five\db_manager();
-        $latestHighFive = $dbManager->get_latest_high_five();
+        $dbmanager = new local_high_five\db_manager();
+        $latesthighfive = $dbmanager->get_latest_high_five();
 
-        if ($latestHighFive) {
+        if ($latesthighfive) {
             $this->content->text = html_writer::tag('p', get_string('latesthighfive', 'local_high_five', [
-                'name' => $latestHighFive->name,
-                'id' => $latestHighFive->id
+                'name' => $latesthighfive->name,
+                'id' => $latesthighfive->id,
             ]));
         } else {
             $this->content->text = html_writer::tag('p', get_string('nohighfives', 'local_high_five'));
         }
 
-        // Add "Make High Five" button with AJAX functionality.
-$this->content->text .= html_writer::tag('div',
-html_writer::tag('button', get_string('makehighfive', 'local_high_five'), [
-    'id' => 'make-high-five',
-    'class' => 'btn btn-primary'
-]),
-['class' => 'make-high-five-button']
-);
+        // Add the button that the AMD module binds to.
+        $this->content->text .= html_writer::tag(
+            'div',
+            html_writer::tag('button', get_string('makehighfive', 'local_high_five'), [
+                'id' => 'make-high-five',
+                'class' => 'btn btn-primary',
+            ]),
+            ['class' => 'make-high-five-button']
+        );
 
         $this->content->footer = '';
 
