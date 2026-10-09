@@ -229,13 +229,13 @@ We will not add a generator that asks for a plugin type and rewrites the tree. W
 1. This project is built based on [best practices documented in moodle-local_plugin_template](https://github.com/fulldecent/moodle-local_plugin_template), release 1.0.0.
 1. This project is built based on [best practices documented in project-template](https://github.com/fulldecent/project-template), release 1.3.0.
 1. [EditorConfig](.editorconfig) and the top of [.gitignore](.gitignore) are taken from project-template release 1.3.0. `/dist/` is the local copy of the release zip.
-1. The interface files of a Moodle plugin are [GPL-3.0-or-later](https://moodledev.io/general/community/plugincontribution/checklist). [LICENSE](LICENSE) is that text. Several docblocks had named the MIT license while the file header named the GPL. The docblocks now name the GPL.
+1. The interface files of a Moodle plugin are [GPL-3.0-or-later](https://moodledev.io/general/community/plugincontribution/checklist). [LICENSE.md](LICENSE.md) is that text. Several docblocks had named the MIT license while the file header named the GPL. The docblocks now name the GPL.
 1. Moodle CI on pull requests is [Catalyst's reusable workflow](https://github.com/catalyst/catalyst-moodle-workflows). Its `pre_job` skips `schedule`. [moodlehq/moodle-plugin-ci](https://github.com/moodlehq/moodle-plugin-ci/issues/323) makes you name each Moodle branch, which is why the monthly workflow discovers the newest stable branch itself. The job's steps follow [`gha.dist.yml`](https://github.com/moodlehq/moodle-plugin-ci/blob/main/gha.dist.yml) in moodle-plugin-ci, including `shivammathur/setup-php@v2`.
 1. AMD output is committed. See [Moodle's JavaScript modules guide](https://moodledev.io/docs/4.5/guides/javascript/modules), the [h5p activity](https://github.com/h5p/moodle-mod_hvp), and the [attendance activity](https://github.com/danmarsden/moodle-mod_attendance/tree/MOODLE_404_STABLE/amd).
 1. The playground clone uses `git://git.moodle.org/moodle.git`, which is the URL in the [moodle-docker](https://github.com/moodlehq/moodle-docker) instructions and the workaround recorded for [MDL-83812](https://moodle.atlassian.net/browse/MDL-83812). The upgrade-running message is [moodle-docker issue 307](https://github.com/moodlehq/moodle-docker/issues/307).
-1. This project is released under the [GNU GPL v3 or later](LICENSE).
+1. This project is released under the [GNU GPL v3 or later](LICENSE.md).
 
 > [!NOTE]
-> Moodle plugins that implement the core interface are GPL-3.0-or-later. Replace [LICENSE](LICENSE) only when you have a reason Moodle's rule does not apply, and say so here.
+> Moodle plugins that implement the core interface are GPL-3.0-or-later. Replace [LICENSE.md](LICENSE.md) only when you have a reason Moodle's rule does not apply, and say so here.
 >
 > Cite the release of moodle-local_plugin_template you copied, and the release of project-template that template cited.
