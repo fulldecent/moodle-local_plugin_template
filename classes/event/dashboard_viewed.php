@@ -18,7 +18,7 @@
  * Event class for logging when the dashboard is viewed.
  *
  * @package     local_high_five
- * @license     http://opensource.org/licenses/MIT MIT License
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @copyright   2024 William Entriken
  */
 

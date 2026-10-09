@@ -1,0 +1,84 @@
+# Install this plugin on the newest MOODLE_*_STABLE branch and run its PHPUnit tests.
+#
+# Catalyst's reusable workflow does not run on schedule, and it only tests the branches
+# named in version.php. This workflow is the check that a newly published Moodle stable
+# still runs the example.
+#
+# The job shape follows moodlehq/moodle-plugin-ci gha.dist.yml. PHP comes from
+# shivammathur/setup-php, which is the installer that file uses. The runner image does
+# not ship the PHP extensions Moodle needs.
+
+name: Moodle compatibility
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  latest-stable:
+    name: Newest stable branch
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v7
+        with:
+          path: plugin
+
+      - name: Newest Moodle stable branch
+        id: moodle
+        run: |
+          # The number in MOODLE_405_STABLE is the version. A plain sort orders
+          # MOODLE_39_STABLE after MOODLE_400_STABLE, so sort on that number.
+          branch=$(git ls-remote --heads https://github.com/moodle/moodle.git 'refs/heads/MOODLE_*_STABLE' \
+            | sed -n 's#.*refs/heads/\(MOODLE_[0-9][0-9]*_STABLE\)#\1#p' \
+            | awk -F_ '{print $2, $0}' | sort -n | awk '{print $2}' | tail -n 1)
+          test -n "$branch"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "Testing $branch" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: gd, zip, intl, pgsql, soap
+          ini-values: max_input_vars=5000, opcache.enable_cli=1
+          coverage: none
+
+      - name: Initialise moodle-plugin-ci
+        run: |
+          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
+          echo "$(cd ci/bin; pwd)" >> "$GITHUB_PATH"
+          echo "$(cd ci/vendor/bin; pwd)" >> "$GITHUB_PATH"
+          sudo locale-gen en_AU.UTF-8
+          echo "NVM_DIR=$HOME/.nvm" >> "$GITHUB_ENV"
+
+      - name: Install
+        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+        env:
+          DB: pgsql
+          MOODLE_BRANCH: ${{ steps.moodle.outputs.branch }}
+
+      - name: PHP lint
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phplint
+
+      - name: PHPUnit
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phpunit --fail-on-warning
+
+      - name: Mark cancelled jobs as failed
+        if: ${{ cancelled() }}
+        run: exit 1

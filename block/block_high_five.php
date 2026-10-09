@@ -26,17 +26,13 @@ public function get_required_javascript() {
      * @return stdClass
      */
     public function get_content() {
-        global $OUTPUT;
-
         if ($this->content !== null) {
             return $this->content;
-            
         }
 
-        // Initialize content properly
-        $this->content = new stdClass();
-        $this->content->text = '';
-        require_once($CFG->dirroot . '../local/high_five/classes/db_manager.php');
+        // Moodle loads this file through blocks/high_five, a symlink to this directory.
+        // __DIR__ resolves to the real block directory, so the plugin root is one level up.
+        require_once(dirname(__DIR__) . '/classes/db_manager.php');
 
         $this->content = new stdClass();
         $dbManager = new local_high_five\db_manager();

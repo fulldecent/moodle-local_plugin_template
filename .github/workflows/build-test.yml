@@ -1,0 +1,72 @@
+# Build and test
+#
+# Build, SLSA attest, and test the project.
+#
+# This workflow produces the following things which release.yml consumes:
+#   1. $.jobs.build-test (this exact job ID)
+#   2. The artifact named "build"
+#
+# Public repositories can use attest for free. Private repos require Enterprise Cloud.
+
+name: Build and test
+
+on:
+  workflow_call:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - name: Check out this commit
+        uses: actions/checkout@v7
+
+      - name: Install PHP
+        run: sudo apt-get update && sudo apt-get install -y php-cli
+
+      - name: Lint PHP
+        run: find . -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Build the plugin zip
+        run: |
+          # Moodle's plugin installer requires one top directory, named as the
+          # directory Moodle will load. This example is local/high_five.
+          stage="${RUNNER_TEMP}/stage"
+          mkdir -p "$stage/high_five" dist
+          tar -cf - --exclude .git --exclude .github --exclude dist . | tar -xf - -C "$stage/high_five"
+          (cd "$stage" && zip -r "$GITHUB_WORKSPACE/dist/high_five.zip" high_five)
+
+      - name: Test
+        run: |
+          unzip -q dist/high_five.zip -d "$RUNNER_TEMP/unpacked"
+          test -f "$RUNNER_TEMP/unpacked/high_five/version.php"
+          test ! -e "$RUNNER_TEMP/unpacked/high_five/.github"
+
+      - name: Attest the build
+        id: attest
+        uses: actions/attest@v4
+        with:
+          subject-path: dist/*
+
+      # After attesting, so the bundle is not one of its own subjects.
+      - name: Add the attestation to the build
+        env:
+          BUNDLE: ${{ steps.attest.outputs.bundle-path }}
+        run: cp "$BUNDLE" dist/attestation.sigstore.json
+
+      - name: Upload the build
+        uses: actions/upload-artifact@v7
+        with:
+          name: build
+          path: dist/
+          if-no-files-found: error
+          retention-days: 14

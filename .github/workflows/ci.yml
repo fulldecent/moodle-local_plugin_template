@@ -1,15 +1,19 @@
-# .github/workflows/ci.yml
+# Catalyst's reusable workflow skips every event except pull_request, and push when the
+# branch is protected. A schedule here does not run the jobs. The monthly run against the
+# newest Moodle stable branch is moodle-compatibility.yml.
+#
+# `uses: ...@main` is deliberate. Catalyst keeps the list of Moodle branches in a cache on
+# that branch. A pinned commit would freeze the versions under test.
+
 name: ci
 
 on:
   push:
   pull_request:
-  schedule:
-    - cron: '0 0 1 * *' # Runs every month to see if a new version of Moodle was released
 
 jobs:
   ci:
     uses: catalyst/catalyst-moodle-workflows/.github/workflows/ci.yml@main
-    # Required if you plan to publish (uncomment the below)
+    # Publishing to the Moodle plugins directory needs a token. Leave this commented until you publish.
     # secrets:
-      # moodle_org_token: ${{ secrets.MOODLE_ORG_TOKEN }}
+    #   moodle_org_token: ${{ secrets.MOODLE_ORG_TOKEN }}

@@ -13,7 +13,7 @@ The task class `\local_high_five\task\cleanup` is defined in [`classes/task/clea
 ### Key features
 
 - **Automated execution:** Runs at specified intervals based on the cron schedule.
-- **Custom logic:** Deletes old records from the database using the database mananger.
+- **Custom logic:** Deletes old records from the database using the database manager.
 
 ## Configuration
 

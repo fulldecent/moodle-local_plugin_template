@@ -18,7 +18,7 @@
  * Code to be executed after the plugin's database schema has been uninstalled.
  *
  * @package     local_high_five
- * @license     http://opensource.org/licenses/MIT MIT License
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @copyright   2024 William Entriken <github.com@phor.net>
  */
 
