@@ -245,7 +245,7 @@ We will not add a generator that asks for a plugin type and rewrites the tree. W
 
 1. We use title case only for proper nouns, including the name of our project.
 1. This project is built based on [best practices documented in moodle-local_plugin_template](https://github.com/fulldecent/moodle-local_plugin_template), release 1.0.0.
-1. This project is built based on [best practices documented in project-template](https://github.com/fulldecent/project-template), release 1.3.0.
+1. This project is built based on [best practices documented in project-template](https://github.com/fulldecent/project-template), release v1.3.0.
 1. [EditorConfig](.editorconfig) and the top of [.gitignore](.gitignore) are taken from project-template release 1.3.0. `/dist/` is the local copy of the release zip.
 1. The interface files of a Moodle plugin are [GPL-3.0-or-later](https://moodledev.io/general/community/plugincontribution/checklist). [LICENSE.md](LICENSE.md) is that text. Several docblocks had named the MIT license while the file header named the GPL. The docblocks now name the GPL.
 1. Moodle CI on pull requests is [Catalyst's reusable workflow](https://github.com/catalyst/catalyst-moodle-workflows). Its `pre_job` skips `schedule`. [moodlehq/moodle-plugin-ci](https://github.com/moodlehq/moodle-plugin-ci/issues/323) makes you name each Moodle branch, which is why the monthly workflow discovers the newest stable branch itself. The job's steps follow [`gha.dist.yml`](https://github.com/moodlehq/moodle-plugin-ci/blob/main/gha.dist.yml) in moodle-plugin-ci, including `shivammathur/setup-php@v2`.
