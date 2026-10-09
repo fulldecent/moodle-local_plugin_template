@@ -14,14 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
+/**
+ * AJAX endpoint that records a high five for the current user.
+ *
+ * @package    local_high_five
+ * @copyright  2024 William Entriken <github.com@phor.net>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 require_once('../../config.php');
 require_once('classes/db_manager.php');
 
 require_login();
 require_capability('moodle/site:config', context_system::instance());
 
-$dbManager = new local_high_five\db_manager();
-$dbManager->make_high_five();
+$dbmanager = new local_high_five\db_manager();
+$dbmanager->make_high_five();
 
 header('Content-Type: application/json');
 echo json_encode(['status' => 'success']);

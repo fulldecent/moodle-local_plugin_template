@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Secrets. .env.example is the committed sample.
+.env
+.env.*
+!.env.example
+
+# Local copy of the release zip.
+/dist/

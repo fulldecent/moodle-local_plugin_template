@@ -15,7 +15,7 @@ The `dashboard_viewed` event is a custom logging event triggered whenever a user
 3. The event is logged into the Moodle logs (`mdl_logstore_standard_log`) and can be viewed in:
     - **Site administration > Reports > Logs**
 
-[!Logging event](/docs/images/logging.png)
+![Logging event](../../docs/images/logging.webp)
 
 ## File details
 

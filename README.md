@@ -1,282 +1,241 @@
-# Moodle Plugin Template
+# High Five
 
-Use this template as a starting point to develop Moodle plugins.
+> [!TIP]
+> This template is a starting point you can use for a Moodle plugin. We offer:
+>
+> * A working local plugin, with a database, an admin page, a setting, a scheduled task, an event, and an AMD module
+> * A block plugin in the same repository, and the symlink Moodle needs before it will load that block
+> * Playground instructions that use [moodle-docker](https://github.com/moodlehq/moodle-docker)
+> * Continuous integration with [Catalyst's Moodle workflows](.github/workflows/ci.yml), and a [monthly run](.github/workflows/moodle-compatibility.yml) against the newest Moodle stable branch
+> * Continuous integration to [check formatting](.github/workflows/lint.yml)
+> * Automated releases with [Release Please](.github/workflows/release.yml) and SLSA provenance attestation
+> * Modern [EditorConfig](.editorconfig), [.gitignore](.gitignore) and linting
+>
+> What is in-scope for this template?
+>
+> We the people who write Moodle plugins, in order to hand a new plugin a working example and a release Moodle can install, maintain this starting point.
+>
+> The example stays one local plugin plus the block that belongs with it. It shows the files a plugin grows into. It does not generate every plugin type, and it does not publish your plugin to the Moodle Marketplace.
+>
+> And now below is the template, shown for a specific hypothetical project, enjoy!
 
-**STATUS:** This is a work-in-progress, supporting discussions on best practices.
+[![Lint](https://github.com/fulldecent/moodle-local_plugin_template/actions/workflows/lint.yml/badge.svg)](https://github.com/fulldecent/moodle-local_plugin_template/actions/workflows/lint.yml) [![Build and test](https://github.com/fulldecent/moodle-local_plugin_template/actions/workflows/build-test.yml/badge.svg)](https://github.com/fulldecent/moodle-local_plugin_template/actions/workflows/build-test.yml) [![Moodle CI](https://github.com/fulldecent/moodle-local_plugin_template/actions/workflows/ci.yml/badge.svg)](https://github.com/fulldecent/moodle-local_plugin_template/actions/workflows/ci.yml) [![Moodle compatibility](https://github.com/fulldecent/moodle-local_plugin_template/actions/workflows/moodle-compatibility.yml/badge.svg)](https://github.com/fulldecent/moodle-local_plugin_template/actions/workflows/moodle-compatibility.yml)
 
-![File listing](docs/images/project-files.png)
+Students and teachers record a high five. An administrator can record one too.
 
-## Key features
+![Files in the High Five plugin](docs/images/project-files.png)
 
-This template provides a structured, best-practice foundation for developing Moodle plugins, including:
+> [!NOTE]
+> Replace the project name, description, pictures and badge URLs with your own.
+>
+> Rename the component. This example is `local_high_five`, in a repository named `moodle-local_plugin_template`. Name your repository `moodle-<type>_<name>`. Moodle loads the plugin from a directory named `<name>`. The type is one of Moodle's [plugin types](https://moodledev.io/docs/apis/plugintypes).
+>
+> The block in [block/](block/) is a second component, `block_high_five`. Moodle loads blocks from `blocks/`, so the playground instructions symlink that directory. Delete the block when your plugin is not a block.
 
-- 📝 [Installation instructions](#quick-start-playground) for developers and users of your module
-- :runner: [Some basic, dumb functionality](#functional-examples) for a module that you can edit or remove
-- 🔧 [Build system and CI/CD setup](#high-five-plugin) using GitHub Actions
-- 🌍 [Localization](./lang) for all strings
-- ✅ [Automated](./.github/workflows) code style checks, unit testing
-- 🆙 Your module [confirms compatibility](./.github/workflows) with new Moodle versions, when published, with zero action from you
+## Try it out
 
-### Functional examples
+Run a Moodle site with High Five on your own computer. These commands are copied into a terminal. On macOS that terminal is Terminal.app, which is already installed.
 
-This repository offers a functional example of a Moodle plugin, with end-user features:
+1. Install Docker.
 
-- **An admin accessible page** that is permission-locked to site admins
-- **Dashboard page block** for any user to interact with the plugin [ COMING SOON ]
-- **Course page block** for any student to interact with the plugin [ COMING SOON ]
+   On macOS, [OrbStack](https://orbstack.dev/) is the Docker host these instructions were tried with. [Colima](https://github.com/abiosoft/colima?tab=readme-ov-file#installation) is an open-source Docker host and is about 5x slower for this workload.
 
-And then additionally are some features that a good plugin may have, which are not directly called out in the end-user documentation:
+   On Windows, install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/). On Linux, install [Docker Engine](https://docs.docker.com/engine/install/) and the Compose plugin.
 
-- **[Scheduled task](task/README.md)** to remove old records from the database
-- **Settings page** to configure the plugin using the standard Moodle admin settings interface
-- **Custom JavaScript** to enhance the user experience
-- **Unit test** to ensure the plugin works as expected in the Catalyst CI system
-- **[Event logging](classes/event/README.md)** demonstrates how to log events in Moodle using the Events API
-
-You can use these features as they are, modify them, or remove what you don’t need.
-
-## Best practices and resources
-
-Below in the documentation for your new module, and also in [the database README](db/README.md), we cite specific other modules that we recognize as best practice. Such as using "production mode", which is not compliant with DRY.
-
-Additionally, where we think Moodle has not followed best practices, we link to an issue upstream, and provivde a workaround. Such as all the extra boilerplate code necessary to start developing modules.
-
-## How to make your own plugin
-
-1. **[Use this template/fork](https://github.com/new?template_name=moodle-local_plugin_template&template_owner=fulldecent)** and rename it according to Moodle conventions:
-   - Format: `moodle-<type>_<pluginname>` (e.g., `moodle-local_example`)
-   - `<type>` should match Moodle’s [plugin types](https://moodledev.io/docs/apis/plugintypes).
-
-2. **Customize the README**: Update all content below this section to describe your plugin.
-
-3. **Publish and release**: Remove this line and everything above, then publish your repository as version 1.0.0!
-
----
-
----
-
----
-
-# High Five plugin
-
-Enable students to "high five" each other! Enhance engagement and community.
-
-Supported Moodle versions: ![CI status](https://github.com/fulldecent/moodle-local_plugin_template/actions/workflows/ci.yml/badge.svg)
-
-## Features
-
-### :hand: ​Admin can make a high five
-
-This page is only accessible to administrators.
-
-<img src="docs/images/admin-high-five.webp" width=400>
-
-*If you are running Moodle locally, see this live at [local/high_five/](http://localhost:8000/local/high_five/).*
-
-### Users can make a high five from the dashboard [COMING SOON]
-
-Access on your dashboard page at `Edit mode > Add block > High Five`.
-
-[ IMAGE COMING SOON ]
-
-*If you are running Moodle locally, see this live at [blocks/high_five/](http://localhost:8000/my/index.php).*
-
-### Students can make a high five from inside a course [ COMING SOON ]
-
-Access on your course page at `[ INSTRUCTIONS COMING SOON ]`.
-
-[ IMAGE COMING SOON ]
-
-*If you are running Moodle locally, see this live at [ LINK COMING SOON ].*
-
-### :gear: Site administration page
-
-Turn high fives on or off at `Site administration > Plugins > Local plugins > High Five`.
-
-[ COMING SOON: This will actually disable high fives when off ]
-
-<img src="docs/images/settings.webp" width=400>
-
-*If you are running Moodle locally, see this live at [admin/settings.php?section=local_high_five](http://localhost:8000/admin/settings.php?section=local_high_five).*
-
-## Quick start playground
-
-:runner: Run a Moodle playground site with *High Five* on your own computer in under 5 minutes! Zero programming or Moodle experience required.
-
-These instructions include code snippets that you will need to copy/paste into your command terminal. On macOS that would be Terminal.app, which is a software you already have installed.
-
-1. Install a Docker system:
-
-   1. On macOS we currently recommend [OrbStack](https://orbstack.dev/). This is the only software which can install Moodle in under 5 minutes. We would prefer if an open source product can provide this experince, but none such exists. See [references](#references) below if you may prefer another option.
-   2. On Windows (TODO: add open source recommendation)
-   3. On Linux (TODO: add open source recommendation)
-
-2. Create a Moodle testing folder. You will use this to test this plugin, but you could also mix in other plugins onto the same system if you like.
+2. Create a folder for the playground. Other plugins can be copied into the same Moodle tree.
 
    ```sh
    cd ~/Developer
    mkdir moodle-playground && cd moodle-playground
    ```
 
-3. Install the latest version of Moodle:
+3. Install the newest Moodle stable branch.
+
+   The number in `MOODLE_405_STABLE` is the version. A plain `sort` orders `MOODLE_39_STABLE` after `MOODLE_400_STABLE`, so this sorts on that number.
 
    ```sh
-   # Visit https://moodledev.io/general/releases to find the latest release, like X.Y.
-   
-   export BRANCH=MOODLE_X0Y_STABLE # update X and Y here to match the latest release version
-   git clone --depth=1 --branch $BRANCH git://git.moodle.org/moodle.git
+   branch=$(git ls-remote --heads git://git.moodle.org/moodle.git 'refs/heads/MOODLE_*_STABLE' \
+     | sed -n 's#.*refs/heads/\(MOODLE_[0-9][0-9]*_STABLE\)#\1#p' \
+     | awk -F_ '{print $2, $0}' | sort -n | awk '{print $2}' | tail -n 1)
+   git clone --depth=1 --branch "$branch" git://git.moodle.org/moodle.git
    ```
 
-   *:information_source: If you see the error "fatal: Remote branch MOODLE_X0Y_STABLE not found in upstream origin", please reread instruction in the code comment and try again.*
+   If Git refuses `git://`, repeat the clone with `https://git.moodle.org/moodle.git` and the same `--branch`. The `git://` URL is the one [moodle-docker](https://github.com/moodlehq/moodle-docker) documents, as a workaround for [MDL-83812](https://moodle.atlassian.net/browse/MDL-83812).
 
-   *These instructions include a workaround for [Moodle issue MDL-83812](https://tracker.moodle.org/browse/MDL-83812).*
-
-4. Install the High Five plugin into your Moodle playground:
+4. Install High Five into that Moodle tree.
 
    ```sh
    git clone https://github.com/fulldecent/moodle-local_plugin_template.git moodle/local/high_five
+   ln -s ../local/high_five/block moodle/blocks/high_five
    ```
 
-5. Get and run Moodle Docker container (instructions adapted from [moodle-docker instructions](https://github.com/moodlehq/moodle-docker)):
+   The symlink is how Moodle finds the block. The block's code stays in this repository.
+
+5. Start Moodle in Docker. These commands follow [moodle-docker](https://github.com/moodlehq/moodle-docker).
 
    ```sh
    git clone https://github.com/moodlehq/moodle-docker.git
-   cd moodle-docker # You are now at ~/Developer/moodle-playground/moodle-docker
-   
+   cd moodle-docker
+
    export MOODLE_DOCKER_WWWROOT=../moodle
    export MOODLE_DOCKER_DB=pgsql
    bin/moodle-docker-compose up -d
    bin/moodle-docker-wait-for-db
-   
+
    cp config.docker-template.php $MOODLE_DOCKER_WWWROOT/config.php
-   bin/moodle-docker-compose exec webserver php admin/cli/install_database.php --agree-license --fullname="Docker moodle" --shortname="docker_moodle" --summary="Docker moodle site" --adminpass="test" --adminemail="admin@example.com" --adminuser='admin'
+   bin/moodle-docker-compose exec webserver php admin/cli/install_database.php \
+     --agree-license --fullname="Docker moodle" --shortname="docker_moodle" \
+     --summary="Docker moodle site" --adminpass="test" --adminemail="admin@example.com" \
+     --adminuser='admin'
    ```
 
-   *:information_source: If you see the error "Database tables already present; CLI installation cannot continue", please follow the "teardown" instructions below and then try again.*
+   If the installer says `Database tables already present`, run the teardown below and start this step again.
 
-   *:information_source: If you see the error "!!! Site is being upgraded, please retry later. !!!", and "Error code: upgraderunning…", please ignore the error and proceed.*
+   If the installer says `Site is being upgraded, please retry later` with `upgraderunning`, continue. That message is [moodle-docker issue 307](https://github.com/moodlehq/moodle-docker/issues/307).
 
-   *These instructions include a workaround for [moodle-docker issue #307](https://github.com/moodlehq/moodle-docker/issues/307).*
+6. Open <http://localhost:8000>. Log in as `admin` with password `test`.
 
-6. :sun_with_face: Now play with your server at <http://localhost:8000>
+   If Moodle asks to update the database, confirm that page and wait for it to finish.
 
-   1. Click the top-right to login.
-   2. Your username is `admin` and your password is `test`.
-
-   *:information_source: If you see a bunch of stuff and "Update Moodle database now", then click that button and wait. On a M1 Mac with 8GB ram, we saw this take 5 minutes for the page to finish loading.*
-
-7. To completely kill your playground so that next time you will start with a blank slate:
+7. Tear the playground down when you want the next run to start empty. Run this from `moodle-docker`.
 
    ```sh
    bin/moodle-docker-compose down --volumes --remove-orphans
-   colima stop
    ```
 
-If you have any further questions about the playground setup, customizing it or other error messages, please see [moodle-docker documentation](https://github.com/moodlehq/moodle-docker) and [contact that team](https://github.com/moodlehq/moodle-docker/issues).
+Questions about the Docker host, the database, or an error from these commands go to [moodle-docker](https://github.com/moodlehq/moodle-docker/issues).
 
-## Install
+> [!NOTE]
+> Point this section at a running demo of your plugin, or keep the playground and replace the clone URL with your repository.
 
-Install High Five on your quality assurance or production server the same way as on the playground:
+## Installation
 
-1. ```sh
-   git clone https://github.com/fulldecent/moodle-local_plugin_template.git local/high_five
-   ```
+Install a published zip, or clone the repository into the Moodle tree.
 
-2. Load your website in the browser to set up plugins.
+The zip from the [releases page](https://github.com/fulldecent/moodle-local_plugin_template/releases) unpacks to a single `high_five` directory. In Moodle, go to Site administration > Plugins > Install plugins, and upload that zip. Moodle rejects a zip whose top directory has a different name.
 
-## Updating JavaScript
+To install from git, from the Moodle root:
 
-*You only need these instructions if you contribute changes to this High Five plugin, specifically the functionality in JavaScript.*
+```sh
+git clone https://github.com/fulldecent/moodle-local_plugin_template.git local/high_five
+ln -s ../local/high_five/block blocks/high_five
+```
 
-This project uses asynchronous module definition (AMD) to compile JavaScript. This improves performance of modules and is a best practice for Moodle modules [CITATION NEEDED].
+Open the site. Moodle's notifications page installs the plugin and the block.
 
-1. Install Node (we recommend using [nvm](https://github.com/nvm-sh/nvm))
+> [!NOTE]
+> After you rename the plugin, the zip's top directory and this path both have to use the new name. Moodle's installer compares that directory name to the component in `version.php`.
 
-   1. See the required version in your package.json file:
+## Usage
 
-      ```sh
-      cd ~/Developer/moodle-playground/moodle/local/high_five
-      cat ../../package.json | grep '"node"'
-      ```
+An administrator records a high five at `local/high_five/`.
 
-2. Install a Node package manager (we recommend [Yarn Berry](https://github.com/yarnpkg/berry)).
+![Administrator recording a high five](docs/images/admin-high-five.webp)
 
-   ```shcorepack enable
-   corepack enable
-   ```
+On a playground that page is <http://localhost:8000/local/high_five/>.
 
-3. Install packages
+The setting is at Site administration > Plugins > Local plugins > High Five.
 
-   ```sh
-   yarn install
-   ```
+![High Five setting](docs/images/settings.webp)
 
-4. Run the Grunt script to rebuild the AMD module
+The checkbox is stored as `local_high_five/enable_feature`. The admin page and the block do not read it. It is the example of Moodle's admin settings API.
 
-   ```sh
-   yarn exec grunt amd
-   ```
+The block lists the latest high five and can record another. Add it from the blocks drawer on the dashboard or on a course page, after the symlink in [Try it out](#try-it-out) is in place. The block is available on the site home, the dashboard, and course pages.
 
-The end result is that your files in [amd/build](amd/build) will be updated, assuming you have made changes to your files in [amd/source](amd/source).
+A scheduled task deletes old rows. The task class and the cron line are documented in [classes/task/README.md](classes/task/README.md).
 
-Do commit these built artifacts in your repository (do not gitignore the amd/build directory). Yes, this is a violation of DRY principle. This is called "production mode" and it is a documented best practice for Moodle modules [CITATION NEEDED].
+![Scheduled task](docs/images/task.webp)
 
-## Setting up the high five block plugin
+Opening the dashboard logs an event. The event class is documented in [classes/event/README.md](classes/event/README.md).
 
-To use the High Five plugin as a block in Moodle, follow these steps:
+![Dashboard viewed event in the logs](docs/images/logging.webp)
 
-1.  **Create the block folder structure:**
+The database tables are documented in [db/README.md](db/README.md).
 
-    -   Inside your local `high_five` plugin directory, create a folder named `block`.
-    -   Inside the `block` folder, create the following subfolders and files:
-        -   `db/` (for database-related files)
-        -   `lang/` (for language files)
-        -   `version.php` (to define the plugin version)
-        -   `block_high_five.php` (the main block file)
-2.  **Create a symbolic link:**
+## Development
 
-    -   Navigate to your Moodle installation's `blocks` directory.
-    -   Create a symbolic link to the `block` folder inside your `high_five` plugin directory. This allows Moodle to recognize the plugin as a block.
-    -   On Unix-based systems (Linux/macOS), use the following command:
+Thank you for taking an interest in High Five and in the plugins people start from this project.
 
-        `ln -s /path/to/your/high_five/block /path/to/moodle/blocks/high_five`
+Moodle's coding style, the PHPUnit run, and the AMD build are what [ci.yml](.github/workflows/ci.yml) runs, on pull requests and on pushes to a protected branch.
 
-3.  **Verify the setup:**
+### JavaScript
 
-    -   After creating the symbolic link, navigate to your Moodle site as an administrator.
-    -   Go to `Site administration > Notifications`. Moodle should detect the new block and prompt you to install it.
-    -   Follow the on-screen instructions to complete the installation.
-4.  **Using the block:**
+Change AMD source under [amd/src](amd/src), then rebuild from a Moodle checkout that has this plugin installed. The Node.js version is the one in Moodle's own `package.json`, not a version file in this repository.
 
-    -   Once installed, you can add the "High Five" block to any course or dashboard page.
-    -   To add the block:
-        1.  Turn on editing mode.
-        2.  Click "Add a block" in the blocks drawer.
-        3.  Select "High Five" from the list of available blocks.
-5.  **Development and customization:**
+```sh
+cd ~/Developer/moodle-playground/moodle
+grep '"node"' package.json
+corepack enable
+yarn install
+yarn exec grunt amd --root=local/high_five
+```
 
-    -   You can now develop and customize the block by editing the files in the `block` folder of your `high_five` plugin.
+Commit the files Grunt writes under [amd/build](amd/build). Moodle serves those files in production and does not compile AMD on the server. That is the layout the [h5p activity](https://github.com/h5p/moodle-mod_hvp) and the [attendance activity](https://github.com/danmarsden/moodle-mod_attendance/tree/MOODLE_404_STABLE/amd) ship, and it is what [Moodle's JavaScript modules guide](https://moodledev.io/docs/4.5/guides/javascript/modules) describes.
 
-6. **Troubleshooting:**
-   - If the block does not appear in Moodle, ensure the symbolic link is correctly set up and that the `block` folder contains the necessary files (`version.php`, `block_high_five.php`, etc.).
-   - Check the Moodle logs for any errors related to the block installation.
+Prettier does not format `amd/`. Its output and Moodle's Grunt output disagree, and CI then reports a stale AMD build.
 
-By following these steps, you can successfully integrate the High Five plugin as a block in your Moodle installation.
+### Block
 
-## Contributing
+Moodle will not load `block/block_high_five.php` from inside `local/high_five`. The plugin type `block` is loaded from `blocks/<name>`. The symlink in [Try it out](#try-it-out) is that path. `block/version.php` reads the local plugin's version and then sets the component to `block_high_five`, so the two plugins share one version number.
 
-Please send PRs to our [main branch](https://github.com/fulldecent/moodle-local_plugin_template).
+### Testing
+
+Pull requests run [ci.yml](.github/workflows/ci.yml). You can format the files that workflow does not cover before you push:
+
+```sh
+npx prettier@latest --check . --write
+npx markdownlint-cli@latest "**/*.md" --fix
+```
+
+PHP syntax is checked by [build-test.yml](.github/workflows/build-test.yml), which also builds `high_five.zip`.
+
+### Releases
+
+This repository has two version numbers, and they are not the same number.
+
+The template release is SemVer. Use `fix:`, `feat:` or `BREAKING CHANGE:` in your commit messages. Release Please opens a release pull request from those messages. Merging that pull request tags `v1.2.3` and the [release workflow](.github/workflows/release.yml) publishes `high_five.zip` with a SLSA provenance attestation and a version attestation.
+
+The plugin version is `$plugin->version` in [version.php](version.php), a `YYYYMMDDXX` integer. Moodle refuses to upgrade a plugin when this number does not increase. Release Please does not write this file. Bump it in the commit that changes plugin behavior. Catalyst's workflow can publish to the Moodle plugins directory when `version.php` changes and `MOODLE_ORG_TOKEN` is set. The secret in [ci.yml](.github/workflows/ci.yml) stays commented until you publish under your own component name.
+
+> [!NOTE]
+> In your GitHub repository settings, under Actions, General, Workflow permissions, select read and write permissions and check "Allow GitHub Actions to create and approve pull requests". Under General, Releases, enable release immutability. Release Please needs the permission. The publish job needs immutability so a release cannot be replaced after it is attested.
+>
+> A repository created from this template starts with no tags. Release Please reads the latest tag on the default branch. A repository with no tag gets a first release pull request for 1.0.0. The publish job accepts a tag shaped like `v1.2.3`.
+>
+> The zip is packed as `high_five/`. After you rename the plugin, change that directory name in [build-test.yml](.github/workflows/build-test.yml). Moodle's installer rejects a zip whose top directory does not match the component.
+
+### Maintenance
+
+The project administrator completes these maintenance tasks each month. If they are 3+ months late, please remind them or send your own issue or pull request.
+
+1. Read [External actions](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions) versions in [.github/workflows](.github/workflows) and update the ones you have reviewed. Actions under the `actions/` organization need a shorter review.
+2. Read the [Moodle compatibility](.github/workflows/moodle-compatibility.yml) run. It installs the plugin on the newest `MOODLE_*_STABLE` branch. When that run is green and [version.php](version.php) still names an older branch in `$plugin->supported`, widen that range.
+3. Catalyst's Moodle workflow is taken from `@main` on purpose, so its Moodle branch cache keeps moving. Read their changelog when the [Moodle CI](.github/workflows/ci.yml) run starts failing without a change in this repository.
+
+## Project scope
+
+Moodle plugin authors need a first commit that already has a database, a page, a test, and a release an administrator can upload. High Five is that first commit, for a local plugin.
+
+This project will keep the example small enough to read in one sitting. A second plugin type is here only because a block cannot live inside a local plugin's directory, and showing the symlink is the point of including it.
+
+We will not add a generator that asks for a plugin type and rewrites the tree. We will not publish `local_high_five` to the Moodle Marketplace. That component name belongs to this example.
+
+> [!NOTE]
+> Say who your plugin is for, what you will take, and what you will not take.
 
 ## References
 
-1. This module is built based on [best practices documented in moodle-local_plugin_template](https://github.com/fulldecent/moodle-local_plugin_template).
-2. Setting up Docker
-   1. We would prefer an open-source-licensed Docker implementation that runs at native speed on Mac, Linux and Windows. For Mac, you may prefer to [install Colima](https://github.com/abiosoft/colima?tab=readme-ov-file#installation) which is open source but about 5x slower than the OrbStack recommended above.
-3. Setting up playground
-   1. If you require a few courses and users to test your plugin, you may want to look at the [generator tool](https://moodledev.io/general/development/tools/generator).
-4. Continuous integration
-   1. This plugin uses [the Moodle CI suite recommended by Catalyst](https://github.com/catalyst/catalyst-moodle-workflows)
-   2. Perhaps we would prefer the CI suite provided by Moodle, but their approach [does not allow you to set it once and forget it](https://github.com/moodlehq/moodle-plugin-ci/issues/323).
-   3. If you face issues with CI during the build, refer to the [Catalyst README](https://github.com/catalyst/catalyst-moodle-workflows/tree/bbb7b5fba5f8304b8b07ad5534b666202d1751c8?tab=readme-ov-file#amd--grunt-bundling-issues) for troubleshooting tips.
-5. JavaScript modules in Moodle. For best practices on how to use JavaScript modules in Moodle,
-  including the use of AMD for asynchronous loading, check the [Moodle JavaScript Modules Documentation](https://moodledev.io/docs/4.5/guides/javascript/modules). We recommend including the amd/build folder in your repo with your build files. This is not DRY, it is "production mode". Examples of other Moodle modules recommending this best practice are [h5p plugin](https://github.com/h5p/moodle-mod_hvp), [attendance plugin](https://github.com/danmarsden/moodle-mod_attendance/tree/MOODLE_404_STABLE/amd).
+1. We use title case only for proper nouns, including the name of our project.
+1. This project is built based on [best practices documented in moodle-local_plugin_template](https://github.com/fulldecent/moodle-local_plugin_template), release 1.0.0.
+1. This project is built based on [best practices documented in project-template](https://github.com/fulldecent/project-template), release 1.3.0.
+1. [EditorConfig](.editorconfig) and the top of [.gitignore](.gitignore) are taken from project-template release 1.3.0. `/dist/` is the local copy of the release zip.
+1. The interface files of a Moodle plugin are [GPL-3.0-or-later](https://moodledev.io/general/community/plugincontribution/checklist). [LICENSE](LICENSE) is that text. Several docblocks had named the MIT license while the file header named the GPL. The docblocks now name the GPL.
+1. Moodle CI on pull requests is [Catalyst's reusable workflow](https://github.com/catalyst/catalyst-moodle-workflows). Its `pre_job` skips `schedule`. [moodlehq/moodle-plugin-ci](https://github.com/moodlehq/moodle-plugin-ci/issues/323) makes you name each Moodle branch, which is why the monthly workflow discovers the newest stable branch itself. The job's steps follow [`gha.dist.yml`](https://github.com/moodlehq/moodle-plugin-ci/blob/main/gha.dist.yml) in moodle-plugin-ci, including `shivammathur/setup-php@v2`.
+1. AMD output is committed. See [Moodle's JavaScript modules guide](https://moodledev.io/docs/4.5/guides/javascript/modules), the [h5p activity](https://github.com/h5p/moodle-mod_hvp), and the [attendance activity](https://github.com/danmarsden/moodle-mod_attendance/tree/MOODLE_404_STABLE/amd).
+1. The playground clone uses `git://git.moodle.org/moodle.git`, which is the URL in the [moodle-docker](https://github.com/moodlehq/moodle-docker) instructions and the workaround recorded for [MDL-83812](https://moodle.atlassian.net/browse/MDL-83812). The upgrade-running message is [moodle-docker issue 307](https://github.com/moodlehq/moodle-docker/issues/307).
+1. This project is released under the [GNU GPL v3 or later](LICENSE).
+
+> [!NOTE]
+> Moodle plugins that implement the core interface are GPL-3.0-or-later. Replace [LICENSE](LICENSE) only when you have a reason Moodle's rule does not apply, and say so here.
+>
+> Cite the release of moodle-local_plugin_template you copied, and the release of project-template that template cited.

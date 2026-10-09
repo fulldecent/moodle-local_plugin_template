@@ -18,7 +18,7 @@
  * High Five plugin main page display.
  *
  * @package     local_high_five
- * @license     http://opensource.org/licenses/MIT MIT License
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @copyright   2024 William Entriken
  */
 
@@ -32,7 +32,7 @@ if ($hassiteconfig) { // Ensure the user has site admin permissions.
         'local_high_five/enable_feature', // Setting name.
         get_string('enable_feature', 'local_high_five'), // Title of the setting.
         get_string('enable_feature_desc', 'local_high_five'), // Description of the setting.
-        1 // Default is disabled (set to 1 to enable by default).
+        1 // Default is enabled. The admin page does not read this value.
     ));
 
     // Add a link to the custom admin page.

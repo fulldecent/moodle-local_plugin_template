@@ -18,13 +18,11 @@
  * Event class for logging when the dashboard is viewed.
  *
  * @package     local_high_five
- * @license     http://opensource.org/licenses/MIT MIT License
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @copyright   2024 William Entriken
  */
 
 namespace local_high_five\event;
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Event triggered when the user views the dashboard.
@@ -33,7 +31,6 @@ defined('MOODLE_INTERNAL') || die();
  *  triggered by users accessing the dashboard.
  */
 class dashboard_viewed extends \core\event\base {
-
     /**
      *  This function is used to initialize the event and define its base properties like
      *  the event name, description, and related data.
@@ -41,7 +38,7 @@ class dashboard_viewed extends \core\event\base {
      * @return void
      */
     protected function init() {
-        $this->data['crud'] = 'r'; // 'r' = Read, indicating a view event.
+        $this->data['crud'] = 'r'; // Read, indicating a view event.
         $this->data['edulevel'] = self::LEVEL_OTHER;
         $this->data['objecttable'] = ''; // No specific DB table associated.
     }

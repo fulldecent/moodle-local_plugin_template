@@ -25,11 +25,10 @@ use dml_exception;
  * Provides methods for interacting with the 'local_high_five' table in Moodle.
  *
  * @package     local_high_five
- * @license     http://opensource.org/licenses/MIT MIT License
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @copyright   2024 William Entriken <github.com@phor.net>
  */
-class db_manager
-{
+class db_manager {
     /**
      * @var moodle_database Database connection instance.
      */
@@ -40,20 +39,18 @@ class db_manager
      *
      * @throws dml_exception If there is a problem with the database connection.
      */
-    public function __construct()
-    {
+    public function __construct() {
         global $DB;
         $this->db = $DB;
     }
 
     /**
      * Retrieves the latest high five record from the high_five table.
-     * 
+     *
      * @return stdClass|false The record object or false if not found.
      * @throws dml_exception If there is a problem with the database query.
      */
-    public function get_latest_high_five(): \stdClass|false
-    {
+    public function get_latest_high_five(): \stdClass|false {
         $record = $this->db->get_record_sql('SELECT * FROM {local_high_five} ORDER BY id DESC LIMIT 1');
         return $record;
     }
@@ -61,8 +58,7 @@ class db_manager
     /**
      * Make a high five using the current user's name and return success status.
      */
-    public function make_high_five(): void
-    {
+    public function make_high_five(): void {
         global $USER;
 
         $record = new \stdClass();
@@ -73,8 +69,7 @@ class db_manager
     /**
      * Delete old high fives (everything except the latest one).
      */
-    public function delete_old_high_fives(): void
-    {
+    public function delete_old_high_fives(): void {
         $latest = $this->get_latest_high_five();
         if ($latest) {
             $this->db->delete_records_select('local_high_five', 'id != ' . $latest->id);
