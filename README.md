@@ -200,7 +200,7 @@ The plugin version is `$plugin->version` in [version.php](version.php), a `YYYYM
 > [!NOTE]
 > In your GitHub repository settings, under Actions, General, Workflow permissions, select read and write permissions and check "Allow GitHub Actions to create and approve pull requests". Under General, Releases, enable release immutability. Release Please needs the permission. The publish job needs immutability so a release cannot be replaced after it is attested.
 >
-> A repository created from this template starts with no tags. Release Please reads the latest tag on the default branch. A repository with no tag gets a first release pull request for 1.0.0. The publish job accepts a tag shaped like `v1.2.3`.
+> A repository created from this template starts with no tags. Release Please reads the latest tag on the default branch. The publish job accepts a tag shaped like `v1.2.3`.
 >
 > The zip is packed as `high_five/`. After you rename the plugin, change that directory name in [build-test.yml](.github/workflows/build-test.yml). Moodle's installer rejects a zip whose top directory does not match the component.
 
