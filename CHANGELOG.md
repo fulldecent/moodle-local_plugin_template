@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/fulldecent/moodle-local_plugin_template/compare/v1.0.0...v1.0.1) (2026-10-09)
+
+
+### Bug Fixes
+
+* remove noise about 1.0.0 release ([a887313](https://github.com/fulldecent/moodle-local_plugin_template/commit/a8873134ba63e227607bb408ed37a5eb6f9c2a13))
+* rename LICENSE to LICENSE.md ([c508b5a](https://github.com/fulldecent/moodle-local_plugin_template/commit/c508b5aeb4738960b13be6e8cb9dee9a5af2ad74))
+
 ## 1.0.0 (2026-10-09)
 
 
