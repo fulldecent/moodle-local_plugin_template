@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/fulldecent/moodle-local_plugin_template/compare/v1.0.1...v1.0.2) (2026-10-14)
+
+
+### Bug Fixes
+
+* exclude the GPL text from markdownlint ([715241a](https://github.com/fulldecent/moodle-local_plugin_template/commit/715241ae55c0f8273a724686574d0ac368529955))
+* exclude the GPL text from markdownlint ([8880a0f](https://github.com/fulldecent/moodle-local_plugin_template/commit/8880a0f8ceed8ade41c5a37eef179c6108d54c3d))
+
 ## [1.0.1](https://github.com/fulldecent/moodle-local_plugin_template/compare/v1.0.0...v1.0.1) (2026-10-09)
 
 
